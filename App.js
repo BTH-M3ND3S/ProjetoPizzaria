@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View, Text, TouchableOpacity } from 'react-native'; 
 
 import Home from './src/pages/Home';
@@ -16,11 +19,20 @@ const Menu = ({ showMenu }) => {
   if (!showMenu) return null;
 
   return (
-    <View style={{ position: 'absolute', bottom: 80, width: '100%', alignItems: 'center' }}>
-      <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 10 }}>
-        <Text>Opção 1</Text>
-        <Text>Opção 2</Text>
-        <Text>Opção 3</Text>
+    <View style={{ position: 'absolute', bottom:55, width: '100%', alignItems: 'center', }}>
+      <View style={{ alignItems: "center" ,backgroundColor: 'white', height: 100, justifyContent: 'space-around',borderTopLeftRadius: 100,borderTopRightRadius: 100,  padding: 10, width: "97%", display:"flex", flexDirection: "row", }}>
+        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+        <MaterialCommunityIcons name="sale" size={24} color="black" />
+        <Text>Cupons</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+        <AntDesign name="pluscircleo" size={24} color="black" />
+        <Text>Saldo</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+        <FontAwesome5 name="clipboard-list" size={24} color="black" />
+        <Text>Pedidos</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -53,7 +65,6 @@ export default function App (){
               } else if (route.name === 'Você') {
                 iconName = focused ? 'person' : 'person-outline';
               }
-
               return <Ionicons name={iconName} size={size} color={color} />;
             },
           })}
@@ -70,7 +81,7 @@ export default function App (){
           }}
         >
           <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
-          <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>
+          <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>        
           <Tab.Screen name="Pedidos" component={Pedidos} options={{ headerShown: false }}/>
           <Tab.Screen name="Você" component={Voce} options={{ headerShown: false }}/>
         </Tab.Navigator>
