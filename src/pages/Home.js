@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 15,
   },
   pizza: {
     width: 100,
@@ -133,13 +133,10 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     overflow: 'hidden',
-    position: 'relative',
   },
   pizzaImage: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
-    objectFit: "cover",
   },
   infoContainer: {
     position: 'absolute',
