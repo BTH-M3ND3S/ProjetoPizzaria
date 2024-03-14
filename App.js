@@ -28,7 +28,7 @@ const Menu = ({ showMenu }) => {
 
 // Componente MenuButton
 const MenuButton = ({ onPress }) => (
-  <TouchableOpacity style={{ position: 'absolute', bottom: 20, left: '50%', transform: [{ translateX: -25 }], zIndex: 1 }} onPress={onPress}>
+  <TouchableOpacity style={{ position: 'absolute', bottom: 15, left: '53%', transform: [{ translateX: -25 }], zIndex: 1 }} onPress={onPress}>
     <Ionicons name="add" size={24} color="black" />
   </TouchableOpacity>
 );
