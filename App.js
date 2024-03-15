@@ -11,11 +11,9 @@ import Home from './src/pages/Home';
 import Cardapio from './src/pages/Cardapio';
 import Pedidos from './src/pages/Pedidos';
 import Voce from './src/pages/Voce';
-import inutil from './src/pages/inutil';
 
 const Tab = createBottomTabNavigator();
 
-// Componente de Menu
 const Menu = ({ showMenu }) => {
   if (!showMenu) return null;
 
@@ -39,15 +37,15 @@ const Menu = ({ showMenu }) => {
   );
 }
 
-// Componente MenuButton
+
 const MenuButton = ({ onPress }) => (
   <TouchableOpacity style={{ position: 'absolute', bottom:0, left: '50%', transform: [{ translateX: -25 }], zIndex: 1, backgroundColor: "red", padding: 15, borderRadius: 100 }} onPress={onPress}>
     <Ionicons name="add" size={18} color="yellow"/>
   </TouchableOpacity>
 );
 
-// Componente Wrapper para inutil para desabilitar clique
-const InutilWrapper = () => (
+
+const Inutil = () => (
   <View pointerEvents="none" style={{ flex: 1 }}>
     <inutil />
   </View>
@@ -67,9 +65,9 @@ export default function App (){
               if (route.name === 'Home') {
                 iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'Cardápio') {
-                iconName = focused ? 'restaurant' : 'restaurant-outline'; // Alterado o ícone do cardápio para 'restaurant' e 'restaurant-outline'
+                iconName = focused ? 'restaurant' : 'restaurant-outline'; 
             } else if (route.name === 'Pedidos') {
-                iconName = focused ? 'clipboard' : 'clipboard-outline'; // Alterado o ícone dos pedidos para 'clipboard' e 'clipboard-outline'
+                iconName = focused ? 'clipboard' : 'clipboard-outline';
             } else if (route.name === 'Você') {
                 iconName = focused ? 'person' : 'person-outline';
             }
@@ -91,7 +89,7 @@ export default function App (){
         >
           <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
           <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>
-          <Tab.Screen name="." component={InutilWrapper} options={{ headerShown: false }}/>
+          <Tab.Screen name="." component={Inutil}  options={{ headerShown: false  }}/>
           <Tab.Screen name="Pedidos" component={Pedidos} options={{ headerShown: false }}/>
           <Tab.Screen name="Você" component={Voce} options={{ headerShown: false }}/>
         </Tab.Navigator>

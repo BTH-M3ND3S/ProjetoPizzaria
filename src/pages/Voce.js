@@ -11,7 +11,7 @@ export default function Voce() {
       <View style={styles.enterContainer}>
         <Ionicons name="person-circle" size={38} color="white" />
         <Text style={styles.enterText}>Entrar / Cadastrar</Text>
-        <AntDesign name="qrcode" size={28} color="white" left={130} />
+        <AntDesign name="qrcode" size={28} color="white" left={130}/>
       </View>
       <View style={styles.separator}></View>
       <View style={styles.listContainer}>

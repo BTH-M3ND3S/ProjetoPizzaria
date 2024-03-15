@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 
-// Defina as pizzas como uma constante simples
+
 const pizzas = [
   { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },
   { id: 2, nome: "Pizza", sobrenome: "Calabresa", avaliacao: 4.9, image: require('../images/image3.png') },
@@ -30,7 +30,7 @@ export default function Home() {
     if (index === carouselData.length - 1) {
       setTimeout(() => {
         carouselRef.current.snapToItem(0);
-      }, 1000); // Adicionando um pequeno atraso para uma transição mais suave
+      }, 1000); 
     }
   };
 
@@ -89,7 +89,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <StatusBar />
-      <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
+      <Image source={require('../images/imagebg.png')} style={styles.backgroundImage}/>
       <View style={styles.navbar}>
         <Image source={require('../images/logo.png')} style={styles.logo} />
         <TouchableOpacity style={styles.searchButton}>
@@ -110,10 +110,10 @@ export default function Home() {
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
           activeSlideAlignment={'center'}
-          onSnapToItem={handleSnapToItem} // Usando o callback personalizado
+          onSnapToItem={handleSnapToItem} 
           autoplay
           autoplayInterval={5050}
-          ref={carouselRef} // Referência para o carrossel
+          ref={carouselRef} 
         />
 
         <Pagination
@@ -190,13 +190,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   pizza: {
-    width: 115, // Aumentando a largura do quadrado
-    height: 150, // Aumentando a altura do quadrado
+    width: 115,
+    height: 150, 
     margin: 5,
     borderRadius: 10,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'red', // Adicionando borda vermelha
+    borderColor: 'red', 
   },
   pizzaImage: {
     width: '100%',
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    alignItems: 'center', // Centralizando o texto
+    alignItems: 'center', 
   },
   nomePizza: {
     color: 'white',
