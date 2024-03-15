@@ -41,8 +41,8 @@ const Menu = ({ showMenu }) => {
 
 // Componente MenuButton
 const MenuButton = ({ onPress }) => (
-  <TouchableOpacity style={{ position: 'absolute',bottom:0, left: '50%', transform: [{ translateX: -25 }], zIndex: 1, backgroundColor: "red", padding: 15, borderRadius: 100 }} onPress={onPress}>
-    <Ionicons name="add" size={24} color="black" />
+  <TouchableOpacity style={{ position: 'absolute', bottom:0, left: '50%', transform: [{ translateX: -25 }], zIndex: 1, backgroundColor: "red", padding: 15, borderRadius: 100 }} onPress={onPress}>
+    <Ionicons name="add" size={18} color="yellow"/>
   </TouchableOpacity>
 );
 
@@ -66,13 +66,14 @@ export default function App (){
 
               if (route.name === 'Home') {
                 iconName = focused ? 'home' : 'home-outline';
-              } else if (route.name === 'Cardápio') {
-                iconName = focused ? 'list' : 'list-outline';
-              } else if (route.name === 'Pedidos') {
-                iconName = focused ? 'cart' : 'cart-outline';
-              } else if (route.name === 'Você') {
+            } else if (route.name === 'Cardápio') {
+                iconName = focused ? 'restaurant' : 'restaurant-outline'; // Alterado o ícone do cardápio para 'restaurant' e 'restaurant-outline'
+            } else if (route.name === 'Pedidos') {
+                iconName = focused ? 'clipboard' : 'clipboard-outline'; // Alterado o ícone dos pedidos para 'clipboard' e 'clipboard-outline'
+            } else if (route.name === 'Você') {
                 iconName = focused ? 'person' : 'person-outline';
-              }
+            }
+            
               return <Ionicons name={iconName} size={size} color={color} />;
             },
           })}

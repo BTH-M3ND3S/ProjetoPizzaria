@@ -1,31 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 
 // Defina as pizzas como uma constante simples
 const pizzas = [
-  { id: 1, nome: "Pizza de Queijo", preco: 20.00, image: require('../images/image2.png') },
-  { id: 2, nome: "Pizza de Pepperoni", preco: 22.00, image: require('../images/image2.png') },
-  { id: 3, nome: "Pizza de Frango com Catupiry", preco: 25.00, image: require('../images/image2.png') },
-  { id: 4, nome: "Pizza de Calabresa", preco: 21.00, image: require('../images/image2.png') },
-  { id: 5, nome: "Pizza de Margherita", preco: 23.00, image: require('../images/image2.png') },
-  { id: 6, nome: "Pizza de Vegetariana", preco: 24.00, image: require('../images/image2.png') },
+  { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },
+  { id: 2, nome: "Pizza", sobrenome: "Calabresa", avaliacao: 4.9, image: require('../images/image3.png') },
+  { id: 3, nome: "Pizza", sobrenome: "Frango com Catupiry", avaliacao: 5.0, image: require('../images/image4.png') },
+  { id: 4, nome: "Pizza", sobrenome: "Margherita", avaliacao: 4.8, image: require('../images/image5.png') },
+  { id: 5, nome: "Pizza", sobrenome: "Presunto e Queijo", avaliacao: 4.7, image: require('../images/image6.png') },
+  { id: 6, nome: "Pizza", sobrenome: "A Furiosa", avaliacao: 4.9, image: require('../images/image7.png') },
 ];
 
 export default function Home() {
   const carouselData = [
     require('../images/banner1.png'),
-    require('../images/banner1.png'),
-    require('../images/banner1.png'),
-    require('../images/banner1.png'),
-    require('../images/banner1.png'),
+    require('../images/banner2.png'),
+    require('../images/banner3.png'),
+    require('../images/banner4.png'),
+    require('../images/banner5.png'),
   ];
 
+  const [activeSlide, setActiveSlide] = useState(0);
+  const carouselRef = useRef(null);
+
+  const handleSnapToItem = (index) => {
+    setActiveSlide(index);
+    if (index === carouselData.length - 1) {
+      setTimeout(() => {
+        carouselRef.current.snapToItem(0);
+      }, 1000); // Adicionando um pequeno atraso para uma transição mais suave
+    }
+  };
+
+  const [favorite, setFavorite] = useState([]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextSlide = (activeSlide + 1) % carouselData.length;
+      setActiveSlide(nextSlide);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [activeSlide, carouselData.length]);
+
   const renderCarouselItem = ({ item }) => (
-    <Image source={item} style={styles.carouselImage} />
+    <Image source={item} style={[styles.carouselImage, { borderColor: 'red', borderWidth: 1 }]} />
   );
+
+  const toggleFavorite = (id) => {
+    if (favorite.includes(id)) {
+      setFavorite(favorite.filter((item) => item !== id));
+    } else {
+      setFavorite([...favorite, id]);
+    }
+  };
+
+  const isFavorite = (id) => favorite.includes(id);
 
   const renderPizza = ({ item }) => {
     return (
@@ -33,10 +65,22 @@ export default function Home() {
         <Image source={item.image} style={styles.pizzaImage} />
         <View style={styles.infoContainer}>
           <Text style={styles.nomePizza}>{item.nome}</Text>
-          <Text style={styles.precoPizza}>R$ {item.preco.toFixed(2)}</Text>
+          <Text style={styles.nomeEmbaixoPizza}>{item.sobrenome}</Text>
         </View>
-        <TouchableOpacity style={styles.heartIconContainer}>
-          <FontAwesome name="heart" size={20} color={'white'} />
+        <View style={styles.ratingContainer}>
+          <FontAwesome name="star" size={12} color="yellow" />
+          <Text style={styles.avaliacao}>{item.avaliacao}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.heartIconContainer}
+          onPress={() => toggleFavorite(item.id)}
+        >
+          <FontAwesome
+            name={isFavorite(item.id) ? "heart" : "heart-o"}
+            size={20}
+            color={isFavorite(item.id) ? 'red' : 'white'}
+            style={{ padding: 5 }}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -44,26 +88,37 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <StatusBar/>
+      <StatusBar />
       <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
       <View style={styles.navbar}>
         <Image source={require('../images/logo.png')} style={styles.logo} />
         <TouchableOpacity style={styles.searchButton}>
-          <AntDesign name="search1" size={24} color="white" />
+          <AntDesign name="search1" size={24} color="red" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.notificationButton}>
+          <Entypo name="bell" size={24} color="red" />
         </TouchableOpacity>
       </View>
+
       <View style={styles.carouselContainer}>
         <Carousel
           data={carouselData}
+          width={100}
           renderItem={renderCarouselItem}
           sliderWidth={300}
-          itemWidth={300}
+          itemWidth={400}
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
           activeSlideAlignment={'center'}
+          onSnapToItem={handleSnapToItem} // Usando o callback personalizado
+          autoplay
+          autoplayInterval={5050}
+          ref={carouselRef} // Referência para o carrossel
         />
+
         <Pagination
           dotsLength={carouselData.length}
+          activeDotIndex={activeSlide}
           containerStyle={styles.pagination}
           dotStyle={styles.dot}
           inactiveDotStyle={styles.inactiveDot}
@@ -79,6 +134,13 @@ export default function Home() {
           keyExtractor={(item) => item.id.toString()}
           numColumns={3}
         />
+      </View>
+
+      {/* Botão de Chat */}
+      <View style={styles.chatButtonContainer}>
+        <TouchableOpacity style={styles.chatButton}>
+          <FontAwesome name="comments" size={20} color="white" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -111,7 +173,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 40,
     resizeMode: 'contain',
-    marginLeft:150
+    marginLeft: 150
   },
   searchButton: {
     backgroundColor: 'transparent',
@@ -128,11 +190,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   pizza: {
-    width: 100,
-    height: 150,
+    width: 115, // Aumentando a largura do quadrado
+    height: 150, // Aumentando a altura do quadrado
     margin: 5,
     borderRadius: 10,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'red', // Adicionando borda vermelha
   },
   pizzaImage: {
     width: '100%',
@@ -146,42 +210,68 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center', // Centralizando o texto
   },
   nomePizza: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
   },
-  precoPizza: {
+  nomeEmbaixoPizza: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   heartIconContainer: {
     position: 'absolute',
-    top: 10,
-    right: 10,
-    backgroundColor: 'transparent',
+    left: 83,
   },
-  pagination: {
-    marginTop: -20,
+  ratingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 5,
+    borderTopRightRadius: 10,
+  },
+  avaliacao: {
+    color: 'white',
+    fontSize: 12,
+    marginLeft: 2,
   },
   dot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    marginHorizontal: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.92)',
+    backgroundColor: 'red',
   },
   inactiveDot: {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: 'lightgray',
   },
   text: {
     color: "white",
+    fontWeight: "bold",
     fontSize: 20,
     marginLeft: 25,
     marginTop: 10,
   },
+  notificationButton: {
+    marginRight: 5,
+  },
+  chatButtonContainer: {
+    position: 'absolute',
+    bottom: 28,
+    right: 20,
+    backgroundColor: 'red',
+    borderRadius: 50,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  chatButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
