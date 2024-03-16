@@ -7,6 +7,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View, Text, TouchableOpacity } from 'react-native'; 
 
+
 import Home from './src/pages/Home';
 import Cardapio from './src/pages/Cardapio';
 import Pedidos from './src/pages/Pedidos';
@@ -37,14 +38,11 @@ const Menu = ({ showMenu }) => {
   );
 }
 
-
 const MenuButton = ({ onPress }) => (
   <TouchableOpacity style={{ position: 'absolute', bottom:0, left: '50%', transform: [{ translateX: -25 }], zIndex: 1, backgroundColor: "red", padding: 15, borderRadius: 100 }} onPress={onPress}>
     <Ionicons name="add" size={18} color="yellow"/>
   </TouchableOpacity>
 );
-
-
 const Inutil = () => (
   <View pointerEvents="none" style={{ flex: 1 }}>
     <inutil />
@@ -56,46 +54,44 @@ export default function App (){
 
   return (
     <NavigationContainer>
-      <View style={{ flex: 1 }}>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-              if (route.name === 'Home') {
-                iconName = focused ? 'home' : 'home-outline';
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'Cardápio') {
-                iconName = focused ? 'restaurant' : 'restaurant-outline'; 
+              iconName = focused ? 'restaurant' : 'restaurant-outline'; 
             } else if (route.name === 'Pedidos') {
-                iconName = focused ? 'clipboard' : 'clipboard-outline';
+              iconName = focused ? 'clipboard' : 'clipboard-outline';
             } else if (route.name === 'Você') {
-                iconName = focused ? 'person' : 'person-outline';
+              iconName = focused ? 'person' : 'person-outline';
             }
             
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: 'red',
-            inactiveTintColor: 'black',
-            showLabel: true,
-            labelStyle: {
-              fontSize: 12,
-            },
-            style: {
-              backgroundColor: 'white',
-            },
-          }}
-        >
-          <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
-          <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>
-          <Tab.Screen name="." component={Inutil}  options={{ headerShown: false  }}/>
-          <Tab.Screen name="Pedidos" component={Pedidos} options={{ headerShown: false }}/>
-          <Tab.Screen name="Você" component={Voce} options={{ headerShown: false }}/>
-        </Tab.Navigator>
-        <MenuButton onPress={() => setShowMenu(!showMenu)} />
-        <Menu showMenu={showMenu} />
-      </View>
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'red',
+          inactiveTintColor: 'black',
+          showLabel: true,
+          labelStyle: {
+            fontSize: 12,
+          },
+          style: {
+            backgroundColor: 'white',
+          },
+        }}
+      >
+        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
+        <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>
+        <Tab.Screen name="." component={Inutil}  options={{ headerShown: false  }}/>
+        <Tab.Screen name="Pedidos" component={Pedidos} options={{ headerShown: false }}/>
+        <Tab.Screen name="Você" component={Voce} options={{ headerShown: false }}/>
+      </Tab.Navigator>
+      <MenuButton onPress={() => setShowMenu(!showMenu)} />
+      <Menu showMenu={showMenu} />
     </NavigationContainer>
   );
 };

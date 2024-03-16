@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const pizzas = [
@@ -13,7 +14,36 @@ const pizzas = [
   { id: 6, nome: "Pizza", sobrenome: "A Furiosa", avaliacao: 4.9, image: require('../images/image7.png') },
 ];
 
+
 export default function Home() {
+   async function AdicionarFavorito  (id){
+    try {
+      // Verifica se a pizza já está nos favoritos
+      const favorites = await AsyncStorage.getItem('favorites');
+      let favoritesArray = favorites ? JSON.parse(favorites) : [];
+      
+      const index = favoritesArray.indexOf(id);
+      if (index !== -1) {
+        // Se a pizza estiver nos favoritos, remove ela
+        favoritesArray.splice(index, 1);
+        console.log("Removida do async storage")
+      } else {
+        // Se a pizza não estiver nos favoritos, adiciona ela
+        favoritesArray.push(id);
+        console.log("Adicionado ao async sorage com sucesso")
+      }
+      
+      // Salva o array atualizado de favoritos no AsyncStorage
+      await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
+      
+      // Atualiza o estado local de favoritos
+      setFavorite(favoritesArray);
+     
+    } catch (error) {
+      // Lidar com erros ao acessar AsyncStorage
+      console.error('Erro ao acessar AsyncStorage: ', error);
+    }
+  };
   const carouselData = [
     require('../images/banner1.png'),
     require('../images/banner2.png'),
@@ -73,7 +103,7 @@ export default function Home() {
         </View>
         <TouchableOpacity
           style={styles.heartIconContainer}
-          onPress={() => toggleFavorite(item.id)}
+          onPress={() => AdicionarFavorito(item.id)}
         >
           <FontAwesome
             name={isFavorite(item.id) ? "heart" : "heart-o"}
