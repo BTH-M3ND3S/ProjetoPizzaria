@@ -9,26 +9,26 @@ export default function Pedidos() {
     {
       id: 1,
       data: '15/03/2024',
-      horaPedido: '10:00',
-      horaBalconista: '10:05',
+      horaPedido: '19:56',
+      horaBalconista: '19:58',
       horaMotoboy: '10:20',
-      avaliacao: 4,
+      avaliacao: 5,
     },
     {
       id: 2,
-      data: '15/03/2024',
-      horaPedido: '10:30',
-      horaBalconista: '10:35',
+      data: '08/12/2024',
+      horaPedido: '14:13',
+      horaBalconista: '14:16',
       horaMotoboy: '10:50',
-      avaliacao: 5,
+      avaliacao: 4.9,
     },
     {
       id: 3,
-      data: '15/03/2024',
-      horaPedido: '10:30',
-      horaBalconista: '10:35',
-      horaMotoboy: '10:50',
-      avaliacao: 5,
+      data: '07/07/2024',
+      horaPedido: '17:39',
+      horaBalconista: '17:42',
+      horaMotoboy: '18:32',
+      avaliacao: 4.7,
     },
    
   ];
@@ -41,21 +41,20 @@ export default function Pedidos() {
           <Image source={require('../images/logo.png')} style={styles.logo} />
           </View>
           <Text style={styles.Subtitulo}>Você tem {pedidos.length} Pedidos na Pizzaria</Text>
-     
       {pedidos.map((pedido, index) => (
         <View key={index} style={styles.pedidoContainer}>
           <Text style={styles.data}>{pedido.data}</Text>
           <Text style={styles.id}>ID do Pedido: {pedido.id} - Pizzaria</Text>
           <View style={styles.infoRow}>
-          <AntDesign name="pushpin" size={24} color="red" />
-            <Text>{pedido.horaPedido}</Text>
+          <AntDesign name="pushpin" size={20} color="red" />
+            <Text style={styles.horarioscontainer}>{pedido.horaPedido}</Text>
             <FontAwesome name="eye" size={20} color="red" />
-            <Text>{pedido.horaBalconista}</Text>
+            <Text style={styles.horarioscontainer}>{pedido.horaBalconista}</Text>
             <FontAwesome name="motorcycle" size={20} color="red" />
-            <Text>{pedido.horaMotoboy}</Text>
+            <Text style={styles.horarioscontainer}>{pedido.horaMotoboy}</Text>
             <View style={styles.avaliacao}>
               <FontAwesome name="star" size={20} color="yellow" />
-              <Text> {pedido.avaliacao}</Text>
+              <Text style={styles.horariosavaliacao}>{pedido.avaliacao}</Text>
             </View>
           </View>
         </View>
@@ -71,14 +70,16 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   Titulo: {
-    textAlign: "center",
-    fontSize: 50,
-    color: "white"
+    left: 125,
+    fontSize: 38,
+    color: "white",
+    fontWeight: "bold",
   },
   Subtitulo: {
     textAlign: "center",
-    fontSize: 25,
-    color: "white"
+    fontSize: 22,
+    color: "white",
+    fontWeight: "bold"
   },
   backgroundImage: {
     flex: 1,
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     margin: 10,
-    borderRadius: 5,
+    borderRadius: 7,
     elevation: 3, 
   },
   navbar: {
@@ -102,25 +103,35 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   logo: {
+    left: 25,
     width: 100,
-    height: 40,
+    height: 50,
     resizeMode: 'contain',
-    marginLeft: 100
   },
   data: {
     fontWeight: 'bold',
   },
   id: {
     marginTop: 5,
+    fontWeight: 'bold',
   },
   infoRow: {
     marginTop: 10,
     display: 'flex',
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   avaliacao: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  horarioscontainer: {
+    fontWeight: 'bold',
+    right: 21,
+    top: 2,
+  },
+  horariosavaliacao: {
+    fontWeight: 'bold',
+    left: 1,
+    }
 });
