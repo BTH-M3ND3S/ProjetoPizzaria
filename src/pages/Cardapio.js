@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
-import Img1 from '../images/image2.png'
+import Img1 from '../images/image2.png';
 
 const Cardapio = () => {
   const pizzas = [
@@ -43,19 +43,39 @@ const Cardapio = () => {
 
   const renderItem = ({ item, index }) => {
     return (
+      
+       
       <View style={styles.container}>
-        <View style={item % 2 === 0 ? styles.textContainerLeft : styles.textContainerRight}>
-          <Text style={styles.nome}>{item.nome}</Text>
-          <Text style={styles.descricao}>{item.descricao}</Text>
-          <Text style={styles.preco}>{item.preco}</Text>
-        </View>
-        <Image source={item.imagem} style={styles.imagem} />
+       
+        {index % 2 === 0 ? (
+          <>
+            <View style={styles.textContainer}>
+              <Text style={styles.nome}>{item.nome}</Text>
+              <Text style={styles.descricao}>{item.descricao}</Text>
+              <Text style={styles.preco}>{item.preco}</Text>
+            </View>
+            <Image source={item.imagem} style={styles.imagem} />
+          </>
+        ) : (
+          <>
+            <Image source={item.imagem} style={styles.imagem} />
+            <View style={styles.textContainer}>
+              <Text style={styles.nome}>{item.nome}</Text>
+              <Text style={styles.descricao}>{item.descricao}</Text>
+              <Text style={styles.preco}>{item.preco}</Text>
+            </View>
+          </>
+        )}
       </View>
+
     );
   };
 
   return (
+    
     <View style={{ flex: 1, padding: 20 }}>
+         
+       <Image source={require('../images/imagebg.png')} style={styles.backgroundImage}/>
       <FlatList
         data={pizzas}
         keyExtractor={(item) => item.id.toString()}
@@ -68,34 +88,44 @@ const Cardapio = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
   },
-  textContainerLeft: {
+  backgroundImage: {
     flex: 1,
-    marginRight: 10,
+    resizeMode: 'cover',
+    position: 'absolute',
   },
-  textContainerRight: {
+  Titulo: {
+    textAlign: "center",
+    fontSize: 50,
+    color: "white",
+  },
+  textContainer: {
     flex: 1,
-    marginLeft: 10,
+    paddingHorizontal: 10,
   },
   nome: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: "white"
   },
   descricao: {
     fontSize: 16,
+    color: "white"
   },
   preco: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: "white"
   },
   imagem: {
     width: 150,
     height: 150,
     borderRadius: 10,
   },
+
 });
 
 export default Cardapio;
