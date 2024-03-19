@@ -1,15 +1,11 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons'; // Importando os ícones
+import Favoritos from './Favoritos'; // Ajuste o caminho conforme necessário
 import { useNavigation } from '@react-navigation/native';
 
 export default function Voce() {
-    const navigation = useNavigation();
-  
-    const IrParaFavoritos = () => {
-      navigation.navigate('Favoritos'); // Navegar para a página de Favoritos
-    };
-  
+  const navigation = useNavigation();
     return (
       <View style={styles.container}>
         <StatusBar />
@@ -22,11 +18,11 @@ export default function Voce() {
         </View>
         <View style={styles.separator}></View>
         <View style={styles.listContainer}>
-          <Item icon="chatbubbles-outline" label="Conversas" />
+          <Item icon="chatbubbles-outline" label="Conversas" />     
           <Item icon="notifications-outline" label="Notificações" />
           <Item icon="card-outline" label="Pagamentos" />
           <Item icon="pricetag-outline" label="Cupons" />
-          <Item icon="heart-outline" label="Favoritos" onPress={IrParaFavoritos}/>
+          <Item icon="heart-outline" label="Favoritos" onPress={() => navigation.navigate('Favoritos')}/>
           <Item icon="gift-outline" label="Doações" />
           <Item icon="location-outline" label="Endereços" />
           <Item icon="person-circle-outline" label="Minha Conta" />
@@ -42,6 +38,7 @@ const Item = ({ icon, label, onPress }) => (
     <Text style={styles.itemText}>{label}</Text>
     <AntDesign name="right" size={18} color="white" style={{ marginLeft: 'auto' }} />
   </TouchableOpacity>
+  
 );
 
 const styles = StyleSheet.create({

@@ -70,7 +70,6 @@ const Cardapio = () => {
 
     );
   };
-
   return (
     
     <View style={{ flex: 1, padding: 20 }}>

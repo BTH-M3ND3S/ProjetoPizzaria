@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import NetInfo from '@react-native-community/netinfo'; // Importe o NetInfo
 
 const pizzas = [
   { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },
@@ -14,14 +14,17 @@ const pizzas = [
   { id: 6, nome: "Pizza", sobrenome: "A Furiosa", avaliacao: 4.9, image: require('../images/image7.png') },
 ];
 
+export default function Home () {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [favorite, setFavorite] = useState([]);
+  const carouselRef = useRef(null);
 
-export default function Home() {
-   async function AdicionarFavorito  (id){
+  async function AdicionarFavorito(id) {
     try {
       // Verifica se a pizza já está nos favoritos
       const favorites = await AsyncStorage.getItem('favorites');
       let favoritesArray = favorites ? JSON.parse(favorites) : [];
-      
+
       const index = favoritesArray.indexOf(id);
       if (index !== -1) {
         // Se a pizza estiver nos favoritos, remove ela
@@ -30,20 +33,30 @@ export default function Home() {
       } else {
         // Se a pizza não estiver nos favoritos, adiciona ela
         favoritesArray.push(id);
-        console.log("Adicionado ao async sorage com sucesso")
+        console.log("Adicionado ao async storage com sucesso")
       }
-      
+
       // Salva o array atualizado de favoritos no AsyncStorage
       await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
-      
+
       // Atualiza o estado local de favoritos
       setFavorite(favoritesArray);
-     
+
     } catch (error) {
       // Lidar com erros ao acessar AsyncStorage
       console.error('Erro ao acessar AsyncStorage: ', error);
     }
   };
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      if (!state.isConnected) {
+        alert("Sem internet")
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const carouselData = [
     require('../images/banner1.png'),
     require('../images/banner2.png'),
@@ -52,19 +65,14 @@ export default function Home() {
     require('../images/banner5.png'),
   ];
 
-  const [activeSlide, setActiveSlide] = useState(0);
-  const carouselRef = useRef(null);
-
   const handleSnapToItem = (index) => {
     setActiveSlide(index);
     if (index === carouselData.length - 1) {
       setTimeout(() => {
         carouselRef.current.snapToItem(0);
-      }, 1000); 
+      }, 1000);
     }
   };
-
-  const [favorite, setFavorite] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -119,7 +127,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <StatusBar />
-      <Image source={require('../images/imagebg.png')} style={styles.backgroundImage}/>
+      <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
       <View style={styles.navbar}>
         <Image source={require('../images/logo.png')} style={styles.logo} />
         <TouchableOpacity style={styles.searchButton}>
@@ -140,10 +148,10 @@ export default function Home() {
           inactiveSlideScale={1}
           inactiveSlideOpacity={1}
           activeSlideAlignment={'center'}
-          onSnapToItem={handleSnapToItem} 
+          onSnapToItem={handleSnapToItem}
           autoplay
           autoplayInterval={5050}
-          ref={carouselRef} 
+          ref={carouselRef}
         />
 
         <Pagination
@@ -221,12 +229,12 @@ const styles = StyleSheet.create({
   },
   pizza: {
     width: 115,
-    height: 150, 
+    height: 150,
     margin: 5,
     borderRadius: 10,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'red', 
+    borderColor: 'red',
   },
   pizzaImage: {
     width: '100%',
@@ -240,7 +248,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   nomePizza: {
     color: 'white',

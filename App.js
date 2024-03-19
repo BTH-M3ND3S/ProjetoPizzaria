@@ -12,8 +12,10 @@ import Home from './src/pages/Home';
 import Cardapio from './src/pages/Cardapio';
 import Pedidos from './src/pages/Pedidos';
 import Voce from './src/pages/Voce';
+import Favoritos from './src/pages/Favoritos'; 
 
 const Tab = createBottomTabNavigator();
+
 
 const Menu = ({ showMenu }) => {
   if (!showMenu) return null;
@@ -71,24 +73,23 @@ export default function App (){
             
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'red',
-          inactiveTintColor: 'black',
-          showLabel: true,
-          labelStyle: {
+          tabBarActiveTintColor: 'red', // Cor do ícone ativo
+          tabBarInactiveTintColor: 'black', // Cor do ícone inativo
+          tabBarShowLabel: true, // Mostra os rótulos dos ícones
+          tabBarLabelStyle: {
             fontSize: 12,
           },
-          style: {
+          tabBarStyle: {
             backgroundColor: 'white',
           },
-        }}
+        })}
       >
         <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
         <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>
         <Tab.Screen name="." component={Inutil}  options={{ headerShown: false  }}/>
         <Tab.Screen name="Pedidos" component={Pedidos} options={{ headerShown: false }}/>
         <Tab.Screen name="Você" component={Voce} options={{ headerShown: false }}/>
+        <Tab.Screen name="Favoritos" component={Favoritos} options={{ headerShown: false }}/>
       </Tab.Navigator>
       <MenuButton onPress={() => setShowMenu(!showMenu)} />
       <Menu showMenu={showMenu} />
