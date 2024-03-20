@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NetInfo from '@react-native-community/netinfo'; // Importe o NetInfo
+import NetInfo from '@react-native-community/netinfo';
 
 const pizzas = [
   { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },

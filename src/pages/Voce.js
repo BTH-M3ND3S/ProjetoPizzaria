@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
-import { AntDesign, Ionicons } from '@expo/vector-icons'; // Importando os ícones
-import Favoritos from './Favoritos'; // Ajuste o caminho conforme necessário
+import { AntDesign, Ionicons } from '@expo/vector-icons';
+import Favoritos from './Favoritos'; 
 import { useNavigation } from '@react-navigation/native';
 
 export default function Voce() {
@@ -10,7 +10,6 @@ export default function Voce() {
       <View style={styles.container}>
         <StatusBar />
         <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
-        {/* Ícone de pessoa e texto "Entrar/Cadastrar" */}
         <View style={styles.enterContainer}>
           <Ionicons name="person-circle" size={38} color="white" />
           <Text style={styles.enterText}>Entrar / Cadastrar</Text>

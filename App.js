@@ -45,11 +45,6 @@ const MenuButton = ({ onPress }) => (
     <Ionicons name="add" size={18} color="yellow"/>
   </TouchableOpacity>
 );
-const Inutil = () => (
-  <View pointerEvents="none" style={{ flex: 1 }}>
-    <inutil />
-  </View>
-);
 
 export default function App (){
   const [showMenu, setShowMenu] = useState(false);
@@ -57,6 +52,7 @@ export default function App (){
   return (
     <NavigationContainer>
       <Tab.Navigator
+      
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -73,23 +69,23 @@ export default function App (){
             
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'red', // Cor do ícone ativo
-          tabBarInactiveTintColor: 'black', // Cor do ícone inativo
-          tabBarShowLabel: true, // Mostra os rótulos dos ícones
+          tabBarActiveTintColor: 'red', 
+          tabBarInactiveTintColor: 'black', 
+          tabBarShowLabel: true, 
           tabBarLabelStyle: {
             fontSize: 12,
           },
           tabBarStyle: {
             backgroundColor: 'white',
           },
+          
         })}
       >
         <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
         <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>
-        <Tab.Screen name="." component={Inutil}  options={{ headerShown: false  }}/>
         <Tab.Screen name="Pedidos" component={Pedidos} options={{ headerShown: false }}/>
         <Tab.Screen name="Você" component={Voce} options={{ headerShown: false }}/>
-        <Tab.Screen name="Favoritos" component={Favoritos} options={{ headerShown: false }}/>
+       
       </Tab.Navigator>
       <MenuButton onPress={() => setShowMenu(!showMenu)} />
       <Menu showMenu={showMenu} />
