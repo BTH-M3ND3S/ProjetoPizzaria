@@ -1,3 +1,4 @@
+//---------------------IMPORTS PRINCIPAIS-----------------------------\\
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,18 +7,34 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View, Text, TouchableOpacity } from 'react-native'; 
-
-
+//---------------------IMPORTS PAGINAS-----------------------------\\
 import Home from './src/pages/Home';
 import Cardapio from './src/pages/Cardapio';
 import Pedidos from './src/pages/Pedidos';
 import Voce from './src/pages/Voce';
 
+import AdicionarSaldo from './src/components/Comp Home/AdicionarSaldo';
+
+
+//---------------------CONST TABNAVIGATOR-----------------------------\\
 const Tab = createBottomTabNavigator();
 
-
+//---------------------MENU MAIS-----------------------------\\
 const Menu = ({ showMenu }) => {
   if (!showMenu) return null;
+  
+  const [adicionarsaldo, setAdicionarSaldo] = useState(false);
+
+
+  //-------------FAVORITOS---------------------
+    if (adicionarsaldo === true) {
+      return(
+        <AdicionarSaldo handle={ setAdicionarSaldo }/>
+      ) 
+    }
+    function exibiradicionarsaldo() {
+      setAdicionarSaldo(true)
+    }
 
   return (
     <View style={{ position: 'absolute', bottom: 55, width: '100%', alignItems: 'center' }}>
@@ -26,7 +43,7 @@ const Menu = ({ showMenu }) => {
           <MaterialCommunityIcons name="sale" size={24} color="black" />
           <Text>Cupons</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} onPress={exibiradicionarsaldo}>
           <AntDesign name="pluscircleo" size={24} color="black" />
           <Text>Saldo</Text>
         </TouchableOpacity>
@@ -38,20 +55,19 @@ const Menu = ({ showMenu }) => {
     </View>
   );
 }
-
+//---------------------BOTAO MENU MAIS-----------------------------\\
 const MenuButton = ({ onPress }) => (
   <TouchableOpacity style={{ position: 'absolute', bottom:0, left: '50%', transform: [{ translateX: -25 }], zIndex: 1, backgroundColor: "red", padding: 15, borderRadius: 100 }} onPress={onPress}>
     <Ionicons name="add" size={18} color="yellow"/>
   </TouchableOpacity>
 );
-
+//---------------------MENU NAVIGATOR-----------------------------\\
 export default function App (){
   const [showMenu, setShowMenu] = useState(false);
 
   return (
     <NavigationContainer>
       <Tab.Navigator
-      
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;

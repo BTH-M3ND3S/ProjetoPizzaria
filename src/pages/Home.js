@@ -5,6 +5,7 @@ import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 
+
 const pizzas = [
   { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },
   { id: 2, nome: "Pizza", sobrenome: "Calabresa", avaliacao: 4.9, image: require('../images/image3.png') },
@@ -168,7 +169,6 @@ export default function Home () {
         />
       </View>
 
-      {/* Botão de Chat */}
       <View style={styles.chatButtonContainer}>
         <TouchableOpacity style={styles.chatButton}>
           <FontAwesome name="comments" size={20} color="white" />

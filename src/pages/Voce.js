@@ -156,7 +156,6 @@ const Item = ({ icon, label, onPress }) => (
     <Text style={styles.itemText}>{label}</Text>
     <AntDesign name="right" size={18} color="white" style={{ marginLeft: 'auto' }} />
   </TouchableOpacity>
-  
 );
 
 const styles = StyleSheet.create({
