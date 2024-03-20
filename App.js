@@ -12,7 +12,6 @@ import Home from './src/pages/Home';
 import Cardapio from './src/pages/Cardapio';
 import Pedidos from './src/pages/Pedidos';
 import Voce from './src/pages/Voce';
-import Favoritos from './src/pages/Favoritos'; 
 
 const Tab = createBottomTabNavigator();
 

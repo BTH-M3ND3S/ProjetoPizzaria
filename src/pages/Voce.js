@@ -1,11 +1,120 @@
-import React from 'react';
-import { View, Image, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, StyleSheet, Text, StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import Favoritos from './Favoritos'; 
-import { useNavigation } from '@react-navigation/native';
+import Favoritos from '../components/Comp Você/Favoritos';
+import Conversas from '../components/Comp Você/Conversas';
+import Notificacoes from '../components/Comp Você/Notificacoes';
+import Pagamentos from '../components/Comp Você/Pagamentos';
+import Cupons from '../components/Comp Você/Cupons';
+import Doacoes from '../components/Comp Você/Doacoes';
+import Enderecos from '../components/Comp Você/Enderecos';
+import MinhConta from '../components/Comp Você/MinhaConta';
+import Configuracoes from '../components/Comp Você/Configuracoes';
+
 
 export default function Voce() {
-  const navigation = useNavigation();
+
+  const [favoritos, setFavoritos] = useState(false);
+  const [notificacoes, setNotificacoes] = useState(false);
+  const [conversas, setConversas] = useState(false);
+  const [pagamentos, setPagamentos] = useState(false);
+  const [cupons, setCupons] = useState(false);
+  const [doacoes, setDoacoes] = useState(false);
+  const [enderecos, setEnderecos] = useState(false);
+  const [minhaconta, setMinhaConta] = useState(false);
+  const [configuracoes, setConfiguracoes] = useState(false);
+
+
+//-------------FAVORITOS---------------------
+  if (favoritos === true) {
+    return(
+      <Favoritos handle={ setFavoritos }/>
+    ) 
+  }
+  function exibirfavoritos() {
+    setFavoritos(true)
+  }
+
+//-------------NOTIFICACOES---------------------
+if (notificacoes === true) {
+  return(
+    <Notificacoes handle={ setNotificacoes }/>
+  ) 
+}
+function exibirnotificacoes() {
+  setNotificacoes(true)
+}
+
+//-------------CONVERSAS---------------------
+if (conversas === true) {
+  return(
+    <Conversas handle={ setConversas }/>
+  ) 
+}
+function exibirconversas() {
+  setConversas(true)
+}
+
+//-------------PAGAMENTOS---------------------
+if (pagamentos === true) {
+  return(
+    <Pagamentos handle={ setPagamentos }/>
+  ) 
+}
+function exibirpagamentos() {
+  setPagamentos(true)
+}
+
+//-------------CUPONS---------------------
+if (cupons === true) {
+  return(
+    <Cupons handle={ setCupons }/>
+  ) 
+}
+function exibircupons() {
+  setCupons(true)
+}
+
+//-------------DOACOES---------------------
+if (doacoes === true) {
+  return(
+    <Doacoes handle={ setDoacoes }/>
+  ) 
+}
+function exibirdoacoes() {
+  setDoacoes(true)
+}
+
+//-------------ENDERECOS---------------------
+if (enderecos === true) {
+  return(
+    <Enderecos handle={ setEnderecos }/>
+  ) 
+}
+function exibirenderecos() {
+  setEnderecos(true)
+}
+
+//-------------MINHA-CONTA---------------------
+if (minhaconta === true) {
+  return(
+    <MinhConta handle={ setMinhaConta }/>
+  ) 
+}
+function exibirminhaconta() {
+  setMinhaConta(true)
+}
+//-------------CONFIGURACOES---------------------
+if (configuracoes === true) {
+  return(
+    <Configuracoes handle={ setConfiguracoes }/>
+  ) 
+}
+function exibirconfiguracoes() {
+  setConfiguracoes(true)
+}
+//-------------------------------------------
+
     return (
       <View style={styles.container}>
         <StatusBar />
@@ -17,15 +126,15 @@ export default function Voce() {
         </View>
         <View style={styles.separator}></View>
         <View style={styles.listContainer}>
-          <Item icon="chatbubbles-outline" label="Conversas" />     
-          <Item icon="notifications-outline" label="Notificações" />
-          <Item icon="card-outline" label="Pagamentos" />
-          <Item icon="pricetag-outline" label="Cupons" />
-          <Item icon="heart-outline" label="Favoritos" onPress={() => navigation.navigate('Favoritos')}/>
-          <Item icon="gift-outline" label="Doações" />
-          <Item icon="location-outline" label="Endereços" />
-          <Item icon="person-circle-outline" label="Minha Conta" />
-          <Item icon="settings-outline" label="Configurações" />
+          <Item icon="chatbubbles-outline" label="Conversas" onPress={exibirconversas}/>     
+          <Item icon="notifications-outline" label="Notificações" onPress={exibirnotificacoes}/>
+          <Item icon="card-outline" label="Pagamentos" onPress={exibirpagamentos}/>
+          <Item icon="pricetag-outline" label="Cupons" onPress={exibircupons}/>
+          <Item icon="heart-outline" label="Favoritos" onPress={exibirfavoritos}/>
+          <Item icon="gift-outline" label="Doações" onPress={exibirdoacoes}/>
+          <Item icon="location-outline" label="Endereços" onPress={exibirenderecos}/>
+          <Item icon="person-circle-outline" label="Minha Conta" onPress={exibirminhaconta}/>
+          <Item icon="settings-outline" label="Configurações" onPress={exibirconfiguracoes}/>
         </View>
       </View>
     );
