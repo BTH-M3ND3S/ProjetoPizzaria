@@ -85,6 +85,7 @@ export default function App (){
         <Tab.Screen name="Cardápio" component={Cardapio} options={{ headerShown: false }}/>
         <Tab.Screen name="Pedidos" component={Pedidos} options={{ headerShown: false }}/>
         <Tab.Screen name="Você" component={Voce} options={{ headerShown: false }}/>
+        <Tab.Screen name="Favoritos" component={Favoritos} options={{ headerShown: false }}/>
        
       </Tab.Navigator>
       <MenuButton onPress={() => setShowMenu(!showMenu)} />

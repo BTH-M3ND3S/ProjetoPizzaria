@@ -21,29 +21,23 @@ export default function Home () {
 
   async function AdicionarFavorito(id) {
     try {
-      // Verifica se a pizza já está nos favoritos
       const favorites = await AsyncStorage.getItem('favorites');
       let favoritesArray = favorites ? JSON.parse(favorites) : [];
 
       const index = favoritesArray.indexOf(id);
       if (index !== -1) {
-        // Se a pizza estiver nos favoritos, remove ela
         favoritesArray.splice(index, 1);
         console.log("Removida do async storage")
       } else {
-        // Se a pizza não estiver nos favoritos, adiciona ela
         favoritesArray.push(id);
         console.log("Adicionado ao async storage com sucesso")
       }
 
-      // Salva o array atualizado de favoritos no AsyncStorage
       await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
 
-      // Atualiza o estado local de favoritos
       setFavorite(favoritesArray);
 
     } catch (error) {
-      // Lidar com erros ao acessar AsyncStorage
       console.error('Erro ao acessar AsyncStorage: ', error);
     }
   };
