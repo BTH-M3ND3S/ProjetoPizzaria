@@ -10,6 +10,7 @@ import Doacoes from '../components/Comp Você/Doacoes';
 import Enderecos from '../components/Comp Você/Enderecos';
 import MinhConta from '../components/Comp Você/MinhaConta';
 import Configuracoes from '../components/Comp Você/Configuracoes';
+import Qrcode from '../components/Comp Você/Qrcode';
 
 
 export default function Voce() {
@@ -23,7 +24,7 @@ export default function Voce() {
   const [enderecos, setEnderecos] = useState(false);
   const [minhaconta, setMinhaConta] = useState(false);
   const [configuracoes, setConfiguracoes] = useState(false);
-
+  const [qrcode, setQrcode] = useState(false);
 
 //-------------FAVORITOS---------------------
   if (favoritos === true) {
@@ -113,6 +114,15 @@ if (configuracoes === true) {
 function exibirconfiguracoes() {
   setConfiguracoes(true)
 }
+//-------------QRCODE---------------------
+if (qrcode === true) {
+  return(
+    <Qrcode handle={ setQrcode }/>
+  ) 
+}
+function exibirqrcode() {
+  setQrcode(true)
+}
 //-------------------------------------------
 
     return (
@@ -122,7 +132,7 @@ function exibirconfiguracoes() {
         <View style={styles.enterContainer}>
           <Ionicons name="person-circle" size={38} color="white" />
           <Text style={styles.enterText}>Entrar / Cadastrar</Text>
-          <AntDesign name="qrcode" size={28} color="white" left={130}/>
+          <AntDesign name="qrcode" size={28} color="white" left={130} onPress={exibirqrcode} />
         </View>
         <View style={styles.separator}></View>
         <View style={styles.listContainer}>
