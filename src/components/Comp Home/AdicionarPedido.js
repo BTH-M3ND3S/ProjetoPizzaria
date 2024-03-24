@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default  function AdicionarSaldo( {handle} ) {
+export default  function AdicionarPedido( {handle} ) {
   return (
     <View style={styles.Container}>
         <TouchableOpacity onPress={() => handle(false)} style={{ position: 'absolute', top: 20, left: 20 }}>

@@ -14,6 +14,8 @@ import Pedidos from './src/pages/Pedidos';
 import Voce from './src/pages/Voce';
 
 import AdicionarSaldo from './src/components/Comp Home/AdicionarSaldo';
+import AdicionarPedido from './src/components/Comp Home/AdicionarPedido';
+import Cupons from './src/components/Comp Home/Cupons';
 
 
 //---------------------CONST TABNAVIGATOR-----------------------------\\
@@ -24,9 +26,11 @@ const Menu = ({ showMenu }) => {
   if (!showMenu) return null;
   
   const [adicionarsaldo, setAdicionarSaldo] = useState(false);
+  const [adicionarpedido, setAdicionarPedido] = useState(false);
+  const [cupons, setCupons] = useState(false);
 
 
-  //-------------FAVORITOS---------------------
+  //-------------COMPONENTES---------------------
     if (adicionarsaldo === true) {
       return(
         <AdicionarSaldo handle={ setAdicionarSaldo }/>
@@ -35,11 +39,29 @@ const Menu = ({ showMenu }) => {
     function exibiradicionarsaldo() {
       setAdicionarSaldo(true)
     }
+  //-------------------------------------------------\\
+    if (adicionarpedido === true) {
+      return(
+        <AdicionarPedido handle={ setAdicionarPedido }/>
+      ) 
+    }
+    function exibiradicionarpedido() {
+      setAdicionarPedido(true)
+    }
+
+    if (cupons === true) {
+      return(
+        <Cupons handle={ setCupons }/>
+      ) 
+    }
+    function exibirCupons() {
+      setCupons(true)
+    }
 
   return (
     <View style={{ position: 'absolute', bottom: 55, width: '100%', alignItems: 'center' }}>
       <View style={{ alignItems: "center" ,backgroundColor: 'white', height: 100, justifyContent: 'space-around',borderTopLeftRadius: 100,borderTopRightRadius: 100,  padding: 10, width: "97%", display:"flex", flexDirection: "row" }}>
-        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} onPress={exibirCupons}>
           <MaterialCommunityIcons name="sale" size={24} color="black" />
           <Text>Cupons</Text>
         </TouchableOpacity>
@@ -47,7 +69,7 @@ const Menu = ({ showMenu }) => {
           <AntDesign name="pluscircleo" size={24} color="black" />
           <Text>Saldo</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+        <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} onPress={exibiradicionarpedido}>
           <FontAwesome5 name="clipboard-list" size={24} color="black" />
           <Text>Pedidos</Text>
         </TouchableOpacity>
