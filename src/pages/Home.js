@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+//import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
@@ -133,6 +133,7 @@ export default function Home () {
         </TouchableOpacity>
       </View>
 
+{/*
       <View style={styles.carouselContainer}>
         <Carousel
           data={carouselData}
@@ -159,6 +160,7 @@ export default function Home () {
           inactiveDotScale={0.8}
         />
       </View>
+  */}
       <Text style={styles.text}>Melhores Avaliados</Text>
       <View style={styles.pizzaContainer}>
         <FlatList
