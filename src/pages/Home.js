@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 
 
+
 const pizzas = [
   { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },
   { id: 2, nome: "Pizza", sobrenome: "Calabresa", avaliacao: 4.9, image: require('../images/image3.png') },
@@ -16,10 +17,7 @@ const pizzas = [
 ];
 
 export default function Home () {
-  const [activeSlide, setActiveSlide] = useState(0);
   const [favorite, setFavorite] = useState([]);
-  const carouselRef = useRef(null);
-
   async function AdicionarFavorito(id) {
     try {
       const favorites = await AsyncStorage.getItem('favorites');
@@ -51,44 +49,6 @@ export default function Home () {
 
     return () => unsubscribe();
   }, []);
-
-  const carouselData = [
-    require('../images/banner1.png'),
-    require('../images/banner2.png'),
-    require('../images/banner3.png'),
-    require('../images/banner4.png'),
-    require('../images/banner5.png'),
-  ];
-
-  const handleSnapToItem = (index) => {
-    setActiveSlide(index);
-    if (index === carouselData.length - 1) {
-      setTimeout(() => {
-        carouselRef.current.snapToItem(0);
-      }, 1000);
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextSlide = (activeSlide + 1) % carouselData.length;
-      setActiveSlide(nextSlide);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [activeSlide, carouselData.length]);
-
-  const renderCarouselItem = ({ item }) => (
-    <Image source={item} style={[styles.carouselImage, { borderColor: 'red', borderWidth: 1 }]} />
-  );
-
-  const toggleFavorite = (id) => {
-    if (favorite.includes(id)) {
-      setFavorite(favorite.filter((item) => item !== id));
-    } else {
-      setFavorite([...favorite, id]);
-    }
-  };
 
   const isFavorite = (id) => favorite.includes(id);
 
@@ -132,35 +92,6 @@ export default function Home () {
           <Entypo name="bell" size={24} color="red" />
         </TouchableOpacity>
       </View>
-
-{/*
-      <View style={styles.carouselContainer}>
-        <Carousel
-          data={carouselData}
-          width={100}
-          renderItem={renderCarouselItem}
-          sliderWidth={300}
-          itemWidth={400}
-          inactiveSlideScale={1}
-          inactiveSlideOpacity={1}
-          activeSlideAlignment={'center'}
-          onSnapToItem={handleSnapToItem}
-          autoplay
-          autoplayInterval={5050}
-          ref={carouselRef}
-        />
-
-        <Pagination
-          dotsLength={carouselData.length}
-          activeDotIndex={activeSlide}
-          containerStyle={styles.pagination}
-          dotStyle={styles.dot}
-          inactiveDotStyle={styles.inactiveDot}
-          inactiveDotOpacity={0.6}
-          inactiveDotScale={0.8}
-        />
-      </View>
-  */}
       <Text style={styles.text}>Melhores Avaliados</Text>
       <View style={styles.pizzaContainer}>
         <FlatList
