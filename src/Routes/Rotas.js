@@ -61,8 +61,8 @@ const Menu = ({ showMenu }) => {
     }
 
   return (
-    <View style={{ position: 'absolute', bottom: 55, width: '100%', alignItems: 'center' }}>
-      <View style={{ alignItems: "center" ,backgroundColor: 'white', height: 100, justifyContent: 'space-around',borderTopLeftRadius: 100,borderTopRightRadius: 100,  padding: 10, width: "97%", display:"flex", flexDirection: "row" }}>
+    <View style={{ position: 'absolute', bottom: 60, width: '100%', alignItems: 'center' }}>
+      <View style={{ alignItems: "center" ,backgroundColor: 'white', height: 100, justifyContent: 'space-around',borderTopLeftRadius: 100,borderTopRightRadius: 100,  padding: 10, width: "100%", display:"flex", flexDirection: "row" }}>
         <TouchableOpacity style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} onPress={exibirCupons}>
           <MaterialCommunityIcons name="sale" size={24} color="black" />
           <Text>Cupons</Text>
