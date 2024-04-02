@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Image, StyleSheet, Text, StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import Favoritos from '../components/Comp Você/Favoritos';
@@ -11,10 +11,11 @@ import Enderecos from '../components/Comp Você/Enderecos';
 import MinhConta from '../components/Comp Você/MinhaConta';
 import Configuracoes from '../components/Comp Você/Configuracoes';
 import Qrcode from '../components/Comp Você/Qrcode';
+import { UserContext } from '../Context/UserContext';
 
 
 export default function Voce() {
-
+  const {usuario} = useContext(UserContext)
   const [favoritos, setFavoritos] = useState(false);
   const [notificacoes, setNotificacoes] = useState(false);
   const [conversas, setConversas] = useState(false);
@@ -125,29 +126,31 @@ function exibirqrcode() {
 }
 //-------------------------------------------
 
-    return (
-      <View style={styles.container}>
-        <StatusBar />
-        <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
-        <View style={styles.enterContainer}>
-          <Ionicons name="person-circle" size={38} color="white" />
-          <Text style={styles.enterText}>Entrar / Cadastrar</Text>
-          <AntDesign name="qrcode" size={28} color="white" left={130} onPress={exibirqrcode} />
-        </View>
-        <View style={styles.separator}></View>
-        <View style={styles.listContainer}>
-          <Item icon="chatbubbles-outline" label="Conversas" onPress={exibirconversas}/>     
-          <Item icon="notifications-outline" label="Notificações" onPress={exibirnotificacoes}/>
-          <Item icon="card-outline" label="Pagamentos" onPress={exibirpagamentos}/>
-          <Item icon="pricetag-outline" label="Cupons" onPress={exibircupons}/>
-          <Item icon="heart-outline" label="Favoritos" onPress={exibirfavoritos}/>
-          <Item icon="gift-outline" label="Doações" onPress={exibirdoacoes}/>
-          <Item icon="location-outline" label="Endereços" onPress={exibirenderecos}/>
-          <Item icon="person-circle-outline" label="Minha Conta" onPress={exibirminhaconta}/>
-          <Item icon="settings-outline" label="Configurações" onPress={exibirconfiguracoes}/>
-        </View>
+return (
+  <View style={styles.container}>
+    <StatusBar />
+    <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
+    <View style={styles.enterContainer}>
+      <View style={styles.userContainer}>
+        <Ionicons name="person-circle" size={38} color="white" />
+        <Text style={{color: "white", fontSize: 15}}>{usuario}</Text>
       </View>
-    );
+      <AntDesign name="qrcode" size={28} color="white"  onPress={exibirqrcode} />
+    </View>
+    <View style={styles.separator}></View>
+    <View style={styles.listContainer}>
+      <Item icon="chatbubbles-outline" label="Conversas" onPress={exibirconversas}/>     
+      <Item icon="notifications-outline" label="Notificações" onPress={exibirnotificacoes}/>
+      <Item icon="card-outline" label="Pagamentos" onPress={exibirpagamentos}/>
+      <Item icon="pricetag-outline" label="Cupons" onPress={exibircupons}/>
+      <Item icon="heart-outline" label="Favoritos" onPress={exibirfavoritos}/>
+      <Item icon="gift-outline" label="Doações" onPress={exibirdoacoes}/>
+      <Item icon="location-outline" label="Endereços" onPress={exibirenderecos}/>
+      <Item icon="person-circle-outline" label="Minha Conta" onPress={exibirminhaconta}/>
+      <Item icon="settings-outline" label="Configurações" onPress={exibirconfiguracoes}/>
+    </View>
+  </View>
+);
 }
 
 const Item = ({ icon, label, onPress }) => (
@@ -176,12 +179,12 @@ const styles = StyleSheet.create({
     top: 60,
     left: 30,
     alignItems: 'center',
+    justifyContent: "space-between",
+    width: "85%"
   },
-  enterText: {
-    fontWeight: 'bold',
-    color: 'white',
-    marginLeft: 10,
-    fontSize: 20,
+  userContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   separator: {
     position: 'absolute',
