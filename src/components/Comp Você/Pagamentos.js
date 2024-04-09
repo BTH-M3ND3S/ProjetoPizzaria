@@ -26,7 +26,6 @@ export default function Pagamentos({ handle }) {
   }, [cartoes]);
 
   const adicionarCartao = () => {
-    // Validar os campos
     if (!numeroCartao || !nomeTitular || !dataValidade || !cvc) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       return;
@@ -100,7 +99,7 @@ export default function Pagamentos({ handle }) {
         </View>
       )}
       <TouchableOpacity style={styles.botaoadicionar} onPress={() => setModalVisible(true)}>
-        <Text style={{ color: 'white', fontSize: 18 }}>Adicionar Cartão</Text>
+        <Text style={{ color: 'white', fontSize: 18, textAlign: "center" }}>Adicionar Cartão</Text>
       </TouchableOpacity>
       <Modal
         animationType="slide"
@@ -166,5 +165,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: 'red',
+    marginLeft: 50,
+    width: 300,
+    height: 50,
+    textAlign: "center",
+    justifyContent: "center"
   }
 })
