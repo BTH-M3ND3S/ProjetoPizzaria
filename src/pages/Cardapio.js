@@ -2,6 +2,25 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import Img1 from '../images/image2.png';
+import SucoMaracuja from '../images/SucoMaracuja.png'
+import SucoMorango from '../images/SucoMorango.png'
+import SucoLaranja from '../images/SucoLaranja.png'
+import AguaSemGas from '../images/AguaSemGas.png'
+import AguaComGas from '../images/AguaComGas.png'
+import PepsiBlack from '../images/PepsiBlack.png'
+import Pepsi from '../images/Pepsi.png'
+import CocaCola from '../images/CocaCola.png'
+import CocaColaZero from '../images/CocaColaZero.png'
+import TridentAzul from '../images/TridentAzul.png'
+import TridentRosa from '../images/TridentRosa.png'
+import HallsCinza from '../images/HallsCinza.png'
+import HallsVerde from '../images/HallsVerde.png'
+import ChitaFramboesa from '../images/ChitaFramboesa.png'
+import ChitaAbacaxi from '../images/ChitaAbacaxi.png'
+import ChitaUva from '../images/ChitaUva.png'
+import ChitaMenta from '../images/ChitaMenta.png'
+import BalaYogurte from '../images/BalaYogurte.png'
+
 
 const Cardapio = () => {
   const [index, setIndex] = useState(0);
@@ -20,6 +39,62 @@ const Cardapio = () => {
       descricao: 'Molho de tomate, muçarela e manjericão fresco.',
       imagem: Img1
     },
+    {
+      id: 2,
+      nome: 'Pizza de Calabresa',
+      preco: 'R$ 35,00',
+      descricao: 'Calabresa, cebola, e azeitonas.',
+      imagem: Img1
+    },
+    {
+      id: 3,
+      nome: 'Pizza de Frango com Catupiry',
+      preco: 'R$ 33,00',
+      descricao: 'Frango desfiado e catupiry.',
+      imagem: Img1
+    },
+    {
+      id: 4,
+      nome: 'Pizza Portuguesa',
+      preco: 'R$ 36,00',
+      descricao: 'Presunto, queijo, ovo, cebola, azeitonas e tomate.',
+      imagem: Img1
+    },
+    {
+      id: 5,
+      nome: 'Pizza de Pepperoni',
+      preco: 'R$ 38,00',
+      descricao: 'Pepperoni e muçarela.',
+      imagem: Img1
+    },
+    {
+      id: 6,
+      nome: 'Pizza Quatro Queijos',
+      preco: 'R$ 37,00',
+      descricao: 'Muçarela, parmesão, provolone e gorgonzola.',
+      imagem: Img1
+    },
+    {
+      id: 7,
+      nome: 'Pizza Vegetariana',
+      preco: 'R$ 34,00',
+      descricao: 'Pimentão, cebola, champignon, azeitonas e muçarela.',
+      imagem: Img1
+    },
+    {
+      id: 8,
+      nome: 'Pizza de Atum',
+      preco: 'R$ 35,00',
+      descricao: 'Atum sólido e cebola.',
+      imagem: Img1
+    },
+    {
+      id: 9,
+      nome: 'Pizza de Bacon',
+      preco: 'R$ 36,00',
+      descricao: 'Bacon e muçarela.',
+      imagem: Img1
+    }
   ]);
 
   const [doces, setDoces] = useState([
@@ -30,6 +105,62 @@ const Cardapio = () => {
       descricao: 'Chocolate, morangos e chantilly.',
       imagem: Img1
     },
+    {
+      id: 2,
+      nome: 'Pizza Doce de Banana',
+      preco: 'R$ 32,00',
+      descricao: 'Banana, açúcar e canela.',
+      imagem: Img1
+    },
+    {
+      id: 3,
+      nome: 'Pizza Doce de Morango',
+      preco: 'R$ 34,00',
+      descricao: 'Morango fresco e leite condensado.',
+      imagem: Img1
+    },
+    {
+      id: 4,
+      nome: 'Pizza Doce de Nutella',
+      preco: 'R$ 38,00',
+      descricao: 'Nutella e morangos.',
+      imagem: Img1
+    },
+    {
+      id: 5,
+      nome: 'Pizza Doce de Romeu e Julieta',
+      preco: 'R$ 33,00',
+      descricao: 'Goiabada e queijo.',
+      imagem: Img1
+    },
+    {
+      id: 6,
+      nome: 'Pizza Doce de Brigadeiro',
+      preco: 'R$ 36,00',
+      descricao: 'Brigadeiro e granulado.',
+      imagem: Img1
+    },
+    {
+      id: 7,
+      nome: 'Pizza Doce de Prestígio',
+      preco: 'R$ 37,00',
+      descricao: 'Chocolate e coco ralado.',
+      imagem: Img1
+    },
+    {
+      id: 8,
+      nome: 'Pizza Doce de Morango com Chocolate Branco',
+      preco: 'R$ 39,00',
+      descricao: 'Morango e chocolate branco.',
+      imagem: Img1
+    },
+    {
+      id: 9,
+      nome: 'Pizza Doce de Doce de Leite',
+      preco: 'R$ 38,00',
+      descricao: 'Doce de leite e coco ralado.',
+      imagem: Img1
+    }
   ]);
 
   const [bebidas, setBebidas] = useState([
@@ -37,19 +168,131 @@ const Cardapio = () => {
       id: 1,
       nome: 'Refrigerante Coca-Cola',
       preco: 'R$ 5,00',
-      descricao: 'Lata 350ml.',
-      imagem: Img1
+      descricao: 'Lata 350ml',
+      imagem: CocaCola
     },
+    {
+      id: 2,
+      nome: 'Refrigerante Coca-Cola Zero',
+      preco: 'R$ 5,00',
+      descricao: 'Lata 350ml.',
+      imagem: CocaColaZero
+    },
+    {
+      id: 3,
+      nome: 'Refrigerante Pepsi',
+      preco: 'R$ 4,50',
+      descricao: 'Lata 350ml',
+      imagem: Pepsi
+    },
+    {
+      id: 4,
+      nome: 'Refrigerante Pepsi Black',
+      preco: 'R$ 4,50',
+      descricao: 'Lata 350ml',
+      imagem: PepsiBlack
+    },
+    {
+      id: 5,
+      nome: 'Água Mineral Crystal sem Gás',
+      preco: 'R$ 3,50',
+      descricao: 'Garrafinha 500ml',
+      imagem: AguaSemGas
+    },
+    {
+      id: 6,
+      nome: 'Água Mineral Crystal com Gás',
+      preco: 'R$ 3,50',
+      descricao: 'Garrafinha 500ml',
+      imagem: AguaComGas
+    },
+    {
+      id: 7,
+      nome: 'Suco de Laranja Natural',
+      preco: 'R$ 7,00',
+      descricao: 'Copo 300ml',
+      imagem: SucoLaranja
+    },
+    {
+      id: 8,
+      nome: 'Suco de Morango Polpa',
+      preco: 'R$ 7,00',
+      descricao: 'Copo 300ml',
+      imagem: SucoMorango
+    },
+    {
+      id: 9,
+      nome: 'Suco de Maracujá Polpa',
+      preco: 'R$ 7,00',
+      descricao: 'Copo 300ml',
+      imagem: SucoMaracuja
+    }
   ]);
 
   const [diversos, setDiversos] = useState([
     {
       id: 1,
-      nome: 'Coxinha de Frango',
-      preco: 'R$ 4,00',
-      descricao: 'Unidade.',
-      imagem: Img1
+      nome: 'Trident Hortelã/Menta',
+      preco: 'R$ 2,50',
+      descricao: 'Unidade',
+      imagem: TridentAzul
     },
+    {
+      id: 2,
+      nome: 'Trident Tutti-Frutti',
+      preco: 'R$ 2,50',
+      descricao: 'Unidade',
+      imagem: TridentRosa
+    },
+    {
+      id: 3,
+      nome: 'Halls Menta Prata',
+      preco: 'R$ 2,00',
+      descricao: 'Unidade',
+      imagem: HallsCinza
+    },
+    {
+      id: 4,
+      nome: 'Halls Menta',
+      preco: 'R$ 2,00',
+      descricao: 'Unidade',
+      imagem: HallsVerde
+    },
+    {
+      id: 5,
+      nome: 'Bala Chita Abacaxi',
+      preco: 'R$ 0,50',
+      descricao: 'Unidade',
+      imagem: ChitaAbacaxi
+    },
+    {
+      id: 6,
+      nome: 'Bala Chita Framboesa',
+      preco: 'R$ 0,50',
+      descricao: 'Unidade',
+      imagem: ChitaFramboesa
+    },
+    {
+      id: 7,
+      nome: 'Bala Chita Menta',
+      preco: 'R$ 0,50',
+      descricao: 'Unidade',
+      imagem: ChitaMenta
+    },
+    {
+      id: 8,
+      nome: 'Bala Chita Uva',
+      preco: 'R$ 0,50',
+      descricao: 'Unidade',
+      imagem: ChitaUva
+    },
+    {
+      id: 9,
+      nome: 'Bala Yogurte',
+      preco: 'R$ 0,50',
+      descricao: 'Unidade',
+      imagem: BalaYogurte
+    }
   ]);
 
   const renderScene = SceneMap({
@@ -131,18 +374,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   nome: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
   },
   descricao: {
-    fontSize: 16,
-    color: 'white',
+    fontSize: 12,
+    color: 'orange',
+    top: 8,
   },
   preco: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
+    top: 12,
   },
   imagem: {
     width: 150,

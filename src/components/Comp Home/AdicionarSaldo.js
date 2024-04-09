@@ -13,7 +13,7 @@ export default  function AdicionarSaldo( {handle} ) {
           <Icon name="arrow-left" size={20} color="white" />
         </View>
       </TouchableOpacity>
-      <Text style={{ color: 'white', fontSize: 20, marginTop: 20 }}>Informe o valor do saldo a ser adicionado:</Text>
+      <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Informe o valor do saldo a ser adicionado:</Text>
       <TextInput value={saldo} onChangeText={(text) => setSaldo(text)} keyboardType='numeric' textContentType='telephoneNumber' style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, marginTop: 20, padding: 10, color: "white" }} placeholder='R$00,00' placeholderTextColor={'white'}/>
       <TouchableOpacity>
         <Text style={{ color: 'white', fontSize: 20, marginTop: 20, backgroundColor: 'red', padding: 10, width: 300, textAlign: 'center' }}>Adicionar</Text>
