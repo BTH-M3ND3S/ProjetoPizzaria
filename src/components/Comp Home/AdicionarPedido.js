@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
@@ -12,6 +12,7 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import UserProvider from '../../Context/UserContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -54,6 +55,7 @@ export default function AdicionarPedido({ handle}) {
     });
   }, []);
 
+  const {saldo} = useContext(UserProvider)
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleAddToCart = (item) => {
