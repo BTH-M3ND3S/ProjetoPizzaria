@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } from 'react-native';
 //import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
+import { UserContext } from '../Context/UserContext';
 
 
 
@@ -17,6 +18,8 @@ const pizzas = [
 ];
 
 export default function Home () {
+  const{saldo} = useContext(UserContext)
+  const{usuario} = useContext(UserContext)
   const [favorite, setFavorite] = useState([]);
   async function AdicionarFavorito(id) {
     try {
@@ -84,6 +87,10 @@ export default function Home () {
       <StatusBar />
       <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
       <View style={styles.navbar}>
+        <View>
+          <Text style={{color: "white"}}>{usuario}</Text>
+          <Text style={{color: "white"}}>R${saldo}</Text>
+        </View>
         <Image source={require('../images/logo.png')} style={styles.logo} />
         <TouchableOpacity style={styles.searchButton}>
           <AntDesign name="search1" size={24} color="red" />
