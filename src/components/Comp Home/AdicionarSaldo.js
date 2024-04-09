@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native'
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { UserContext } from '../../Context/UserContext';
+
+
+
 
 export default  function AdicionarSaldo( {handle} ) {
-  const [saldo, setSaldo] = useState();;
+
+  const{saldo, setSaldo} = useContext( UserContext );
+  const[ saldoteste, setSaldoTeste] = useState("")
   return (
     <View style={styles.Container}>
       <Image source={require('../Comp Você/imagebg.png')} style={styles.backgroundImage} />
@@ -14,10 +20,14 @@ export default  function AdicionarSaldo( {handle} ) {
         </View>
       </TouchableOpacity>
       <Text style={{ color: 'white', fontSize: 20, marginTop: 20 }}>Informe o valor do saldo a ser adicionado:</Text>
-      <TextInput value={saldo} onChangeText={(text) => setSaldo(text)} keyboardType='numeric' textContentType='telephoneNumber' style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, marginTop: 20, padding: 10, color: "white" }} placeholder='R$00,00' placeholderTextColor={'white'}/>
+      <TextInput value={saldoteste} TextInput={saldoteste}   onChangeText={(text) => setSaldoTeste(text)} keyboardType='numeric' textContentType='telephoneNumber' style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, marginTop: 20, padding: 10, color: "white" }} placeholder='0' placeholderTextColor={'white'}/>
       <TouchableOpacity>
-        <Text style={{ color: 'white', fontSize: 20, marginTop: 20, backgroundColor: 'red', padding: 10, width: 300, textAlign: 'center' }}>Adicionar</Text>
+
+        <Text style={{ color: 'white', fontSize: 20, marginTop: 20, backgroundColor: 'red', padding: 10, width: 300, textAlign: 'center' }}  onPress={()=> (setSaldo(parseFloat(saldo) + parseFloat(saldoteste)), setSaldoTeste(""))}>Adicionar</Text>
       </TouchableOpacity>
+      {/*<TouchableOpacity>
+        <Text style={{ color: 'white', fontSize: 20, marginTop: 20, backgroundColor: 'red', padding: 10, width: 300, textAlign: 'center' }} onPress={()=> setSaldo(0)}>limpar saldo</Text>
+  </TouchableOpacity>*/}
     </View>
   )
 }
