@@ -20,7 +20,15 @@ import ChitaAbacaxi from '../images/ChitaAbacaxi.png'
 import ChitaUva from '../images/ChitaUva.png'
 import ChitaMenta from '../images/ChitaMenta.png'
 import BalaYogurte from '../images/BalaYogurte.png'
-
+import Chocolate from '../images/Chocolate.png'
+import Morango from '../images/Morango.png'
+import Prestigio from '../images/Prestigio.png'
+import RomeuJulieta from '../images/RomeuJulieta.png'
+import Brigadeiro from '../images/Brigadeiro.png'
+import DoceLeite from '../images/DoceLeite.png'
+import Nutella from '../images/Nutella.png'
+import MorangoComChocolate from '../images/MorangoComChocolate.png'
+import Banana from '../images/Banana.png'
 
 const Cardapio = () => {
   const [index, setIndex] = useState(0);
@@ -103,63 +111,63 @@ const Cardapio = () => {
       nome: 'Pizza Doce de Chocolate',
       preco: 'R$ 35,00',
       descricao: 'Chocolate, morangos e chantilly.',
-      imagem: Img1
+      imagem: Chocolate
     },
     {
       id: 2,
       nome: 'Pizza Doce de Banana',
       preco: 'R$ 32,00',
       descricao: 'Banana, açúcar e canela.',
-      imagem: Img1
+      imagem: Banana
     },
     {
       id: 3,
       nome: 'Pizza Doce de Morango',
       preco: 'R$ 34,00',
       descricao: 'Morango fresco e leite condensado.',
-      imagem: Img1
+      imagem: Morango
     },
     {
       id: 4,
       nome: 'Pizza Doce de Nutella',
       preco: 'R$ 38,00',
       descricao: 'Nutella e morangos.',
-      imagem: Img1
+      imagem: Nutella
     },
     {
       id: 5,
       nome: 'Pizza Doce de Romeu e Julieta',
       preco: 'R$ 33,00',
       descricao: 'Goiabada e queijo.',
-      imagem: Img1
+      imagem: RomeuJulieta
     },
     {
       id: 6,
       nome: 'Pizza Doce de Brigadeiro',
       preco: 'R$ 36,00',
       descricao: 'Brigadeiro e granulado.',
-      imagem: Img1
+      imagem: Brigadeiro
     },
     {
       id: 7,
       nome: 'Pizza Doce de Prestígio',
       preco: 'R$ 37,00',
       descricao: 'Chocolate e coco ralado.',
-      imagem: Img1
+      imagem: Prestigio
     },
     {
       id: 8,
       nome: 'Pizza Doce de Morango com Chocolate Branco',
       preco: 'R$ 39,00',
       descricao: 'Morango e chocolate branco.',
-      imagem: Img1
+      imagem: MorangoComChocolate
     },
     {
       id: 9,
       nome: 'Pizza Doce de Doce de Leite',
       preco: 'R$ 38,00',
       descricao: 'Doce de leite e coco ralado.',
-      imagem: Img1
+      imagem: DoceLeite
     }
   ]);
 
