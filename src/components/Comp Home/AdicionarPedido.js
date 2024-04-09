@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -13,6 +14,13 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width, height } = Dimensions.get('window');
+
+
+
+ 
+
+
+
 
 const menus = [
   {
@@ -33,10 +41,19 @@ const menus = [
       { name: 'Água Mineral', price: 3.99 },
     ],
   },
-  // Adicione outros menus aqui conforme necessário
+  
 ];
 
 export default function AdicionarPedido({ handle}) {
+  const [cartoes, setCartoes] = useState([]);
+  useEffect(() => {
+    AsyncStorage.getItem('cartoes').then((value) => {
+      if (value) {
+        setCartoes(JSON.parse(value));
+      }
+    });
+  }, []);
+
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleAddToCart = (item) => {
