@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import Img1 from '../images/image2.png';
 import SucoMaracuja from '../images/SucoMaracuja.png'
@@ -20,7 +20,7 @@ import ChitaAbacaxi from '../images/ChitaAbacaxi.png'
 import ChitaUva from '../images/ChitaUva.png'
 import ChitaMenta from '../images/ChitaMenta.png'
 import BalaYogurte from '../images/BalaYogurte.png'
-import Chocolate from '../images/Chocolate-removebg-preview.png'
+import Chocolate from '../images/Chocolate.png'
 import Morango from '../images/Morango.png'
 import Prestigio from '../images/Prestigio.png'
 import RomeuJulieta from '../images/RomeuJulieta.png'
@@ -45,63 +45,72 @@ const Cardapio = () => {
       nome: 'Pizza Margherita',
       preco: 'R$ 30,00',
       descricao: 'Molho de tomate, muçarela e manjericão fresco.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 2,
       nome: 'Pizza de Calabresa',
       preco: 'R$ 35,00',
       descricao: 'Calabresa, cebola, e azeitonas.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 3,
       nome: 'Pizza de Frango com Catupiry',
       preco: 'R$ 33,00',
       descricao: 'Frango desfiado e catupiry.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 4,
       nome: 'Pizza Portuguesa',
       preco: 'R$ 36,00',
       descricao: 'Presunto, queijo, ovo, cebola, azeitonas e tomate.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 5,
       nome: 'Pizza de Pepperoni',
       preco: 'R$ 38,00',
       descricao: 'Pepperoni e muçarela.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 6,
       nome: 'Pizza Quatro Queijos',
       preco: 'R$ 37,00',
       descricao: 'Muçarela, parmesão, provolone e gorgonzola.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 7,
       nome: 'Pizza Vegetariana',
       preco: 'R$ 34,00',
       descricao: 'Pimentão, cebola, champignon, azeitonas e muçarela.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 8,
       nome: 'Pizza de Atum',
       preco: 'R$ 35,00',
       descricao: 'Atum sólido e cebola.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     },
     {
       id: 9,
       nome: 'Pizza de Bacon',
       preco: 'R$ 36,00',
       descricao: 'Bacon e muçarela.',
-      imagem: Img1
+      imagem: Img1,
+      quantidade: 0
     }
   ]);
 
@@ -111,63 +120,72 @@ const Cardapio = () => {
       nome: 'Pizza Doce de Chocolate',
       preco: 'R$ 35,00',
       descricao: 'Chocolate, morangos e chantilly.',
-      imagem: Chocolate
+      imagem: Chocolate,
+      quantidade: 0
     },
     {
       id: 2,
       nome: 'Pizza Doce de Banana',
       preco: 'R$ 32,00',
       descricao: 'Banana, açúcar e canela.',
-      imagem: Banana
+      imagem: Banana,
+      quantidade: 0
     },
     {
       id: 3,
       nome: 'Pizza Doce de Morango',
       preco: 'R$ 34,00',
       descricao: 'Morango fresco e leite condensado.',
-      imagem: Morango
+      imagem: Morango,
+      quantidade: 0
     },
     {
       id: 4,
       nome: 'Pizza Doce de Nutella',
       preco: 'R$ 38,00',
       descricao: 'Nutella e morangos.',
-      imagem: Nutella
+      imagem: Nutella,
+      quantidade: 0
     },
     {
       id: 5,
       nome: 'Pizza Doce de Romeu e Julieta',
       preco: 'R$ 33,00',
       descricao: 'Goiabada e queijo.',
-      imagem: RomeuJulieta
+      imagem: RomeuJulieta,
+      quantidade: 0
     },
     {
       id: 6,
       nome: 'Pizza Doce de Brigadeiro',
       preco: 'R$ 36,00',
       descricao: 'Brigadeiro e granulado.',
-      imagem: Brigadeiro
+      imagem: Brigadeiro,
+      quantidade: 0
     },
     {
       id: 7,
       nome: 'Pizza Doce de Prestígio',
       preco: 'R$ 37,00',
       descricao: 'Chocolate e coco ralado.',
-      imagem: Prestigio
+      imagem: Prestigio,
+      quantidade: 0
     },
     {
       id: 8,
       nome: 'Pizza Doce de Morango com Chocolate Branco',
       preco: 'R$ 39,00',
       descricao: 'Morango e chocolate branco.',
-      imagem: MorangoComChocolate
+      imagem: MorangoComChocolate,
+      quantidade: 0
     },
     {
       id: 9,
       nome: 'Pizza Doce de Doce de Leite',
       preco: 'R$ 38,00',
       descricao: 'Doce de leite e coco ralado.',
-      imagem: DoceLeite
+      imagem: DoceLeite,
+      quantidade: 0
     }
   ]);
 
@@ -177,63 +195,72 @@ const Cardapio = () => {
       nome: 'Refrigerante Coca-Cola',
       preco: 'R$ 5,00',
       descricao: 'Lata 350ml',
-      imagem: CocaCola
+      imagem: CocaCola,
+      quantidade: 0
     },
     {
       id: 2,
       nome: 'Refrigerante Coca-Cola Zero',
       preco: 'R$ 5,00',
       descricao: 'Lata 350ml.',
-      imagem: CocaColaZero
+      imagem: CocaColaZero,
+      quantidade: 0
     },
     {
       id: 3,
       nome: 'Refrigerante Pepsi',
       preco: 'R$ 4,50',
       descricao: 'Lata 350ml',
-      imagem: Pepsi
+      imagem: Pepsi,
+      quantidade: 0
     },
     {
       id: 4,
       nome: 'Refrigerante Pepsi Black',
       preco: 'R$ 4,50',
       descricao: 'Lata 350ml',
-      imagem: PepsiBlack
+      imagem: PepsiBlack,
+      quantidade: 0
     },
     {
       id: 5,
       nome: 'Água Mineral Crystal sem Gás',
       preco: 'R$ 3,50',
       descricao: 'Garrafinha 500ml',
-      imagem: AguaSemGas
+      imagem: AguaSemGas,
+      quantidade: 0
     },
     {
       id: 6,
       nome: 'Água Mineral Crystal com Gás',
       preco: 'R$ 3,50',
       descricao: 'Garrafinha 500ml',
-      imagem: AguaComGas
+      imagem: AguaComGas,
+      quantidade: 0
     },
     {
       id: 7,
       nome: 'Suco de Laranja Natural',
       preco: 'R$ 7,00',
       descricao: 'Copo 300ml',
-      imagem: SucoLaranja
+      imagem: SucoLaranja,
+      quantidade: 0
     },
     {
       id: 8,
       nome: 'Suco de Morango Polpa',
       preco: 'R$ 7,00',
       descricao: 'Copo 300ml',
-      imagem: SucoMorango
+      imagem: SucoMorango,
+      quantidade: 0
     },
     {
       id: 9,
       nome: 'Suco de Maracujá Polpa',
       preco: 'R$ 7,00',
       descricao: 'Copo 300ml',
-      imagem: SucoMaracuja
+      imagem: SucoMaracuja,
+      quantidade: 0
     }
   ]);
 
@@ -243,71 +270,80 @@ const Cardapio = () => {
       nome: 'Trident Hortelã/Menta',
       preco: 'R$ 2,50',
       descricao: 'Unidade',
-      imagem: TridentAzul
+      imagem: TridentAzul,
+      quantidade: 0
     },
     {
       id: 2,
       nome: 'Trident Tutti-Frutti',
       preco: 'R$ 2,50',
       descricao: 'Unidade',
-      imagem: TridentRosa
+      imagem: TridentRosa,
+      quantidade: 0
     },
     {
       id: 3,
       nome: 'Halls Menta Prata',
       preco: 'R$ 2,00',
       descricao: 'Unidade',
-      imagem: HallsCinza
+      imagem: HallsCinza,
+      quantidade: 0
     },
     {
       id: 4,
       nome: 'Halls Menta',
       preco: 'R$ 2,00',
       descricao: 'Unidade',
-      imagem: HallsVerde
+      imagem: HallsVerde,
+      quantidade: 0
     },
     {
       id: 5,
       nome: 'Bala Chita Abacaxi',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
-      imagem: ChitaAbacaxi
+      imagem: ChitaAbacaxi,
+      quantidade: 0
     },
     {
       id: 6,
       nome: 'Bala Chita Framboesa',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
-      imagem: ChitaFramboesa
+      imagem: ChitaFramboesa,
+      quantidade: 0
     },
     {
       id: 7,
       nome: 'Bala Chita Menta',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
-      imagem: ChitaMenta
+      imagem: ChitaMenta,
+      quantidade: 0
     },
     {
       id: 8,
       nome: 'Bala Chita Uva',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
-      imagem: ChitaUva
+      imagem: ChitaUva,
+      quantidade: 0
     },
     {
       id: 9,
       nome: 'Bala Yogurte',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
-      imagem: BalaYogurte
+      imagem: BalaYogurte,
+      quantidade: 0
     }
   ]);
 
   const renderScene = SceneMap({
-    salgadas: () => <ProductList produtos={salgadas} />,
-    doces: () => <ProductList produtos={doces} />,
-    bebidas: () => <ProductList produtos={bebidas} />,
-    diversos: () => <ProductList produtos={diversos} />,
+    salgadas: () => <ProductList produtos={salgadas} setProdutos={setSalgadas} />,
+    doces: () => <ProductList produtos={doces} setProdutos={setDoces} />,
+    bebidas: () => <ProductList produtos={bebidas} setProdutos={setBebidas} />,
+    diversos: () => <ProductList produtos={diversos} setProdutos={setDiversos} />,
   });
 
   const renderTabBar = (props) => (
@@ -332,7 +368,7 @@ const Cardapio = () => {
   );
 };
 
-const ProductList = ({ produtos }) => {
+const ProductList = ({ produtos, setProdutos }) => {
   const renderItem = ({ item }) => (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -340,9 +376,42 @@ const ProductList = ({ produtos }) => {
         <Text style={styles.descricao}>{item.descricao}</Text>
         <Text style={styles.preco}>{item.preco}</Text>
       </View>
+      <View style={styles.quantityContainer}>
+        <TouchableOpacity onPress={() => { decrementQuantity(item.id) }}>
+          <Text style={styles.quantityButton}>-</Text>
+        </TouchableOpacity>
+        <Text style={styles.quantity}>{item.quantidade}</Text>
+        <TouchableOpacity onPress={() => { incrementQuantity(item.id) }}>
+          <Text style={styles.quantityButton}>+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.addButton} onPress={() => { /* Ação de adicionar ao ticket */ }}>
+          <Text style={styles.addButtonText}>Adicionar ao Ticket</Text>
+        </TouchableOpacity>
+      </View>
       <Image source={item.imagem} style={styles.imagem} />
     </View>
   );
+  
+
+  const incrementQuantity = (id) => {
+    const updatedProdutos = produtos.map(prod => {
+      if (prod.id === id) {
+        return { ...prod, quantidade: prod.quantidade + 1 }
+      }
+      return prod;
+    });
+    setProdutos(updatedProdutos);
+  };
+
+  const decrementQuantity = (id) => {
+    const updatedProdutos = produtos.map(prod => {
+      if (prod.id === id && prod.quantidade > 0) {
+        return { ...prod, quantidade: prod.quantidade - 1 }
+      }
+      return prod;
+    });
+    setProdutos(updatedProdutos);
+  };
 
   return (
     <FlatList
@@ -374,12 +443,11 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     color: 'white',
-    fontSize: 14, 
+    fontSize: 14,
     fontWeight: 'bold',
   },
   textContainer: {
     flex: 1,
-    paddingHorizontal: 10,
   },
   nome: {
     fontSize: 18,
@@ -389,18 +457,42 @@ const styles = StyleSheet.create({
   descricao: {
     fontSize: 12,
     color: 'orange',
-    top: 8,
+    marginTop: 5,
   },
   preco: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
-    top: 12,
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quantityButton: {
+    fontSize: 14,
+    color: 'orange',
+    marginHorizontal: 5,
+  },
+  quantity: {
+    fontSize: 16,
+    color: 'white',
   },
   imagem: {
     width: 150,
     height: 150,
     borderRadius: 10,
+  },
+  addButton: {
+    backgroundColor: 'orange',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginLeft: 10,
+  },
+  addButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
 });
 
