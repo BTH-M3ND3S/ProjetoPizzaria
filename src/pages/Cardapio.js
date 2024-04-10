@@ -339,11 +339,26 @@ const Cardapio = () => {
     }
   ]);
 
+    
+
+  const [ticket, setTicket] = useState([]);
+
+  const adicionarAoTicket = (produto) => {
+    const index = ticket.findIndex(item => item.id === produto.id);
+    if (index !== -1) {
+      const updatedTicket = [...ticket];
+      updatedTicket[index].quantidade += produto.quantidade;
+      setTicket(updatedTicket);
+    } else {
+      setTicket([...ticket, { ...produto }]);
+    }
+  };
+
   const renderScene = SceneMap({
-    salgadas: () => <ProductList produtos={salgadas} setProdutos={setSalgadas} />,
-    doces: () => <ProductList produtos={doces} setProdutos={setDoces} />,
-    bebidas: () => <ProductList produtos={bebidas} setProdutos={setBebidas} />,
-    diversos: () => <ProductList produtos={diversos} setProdutos={setDiversos} />,
+    salgadas: () => <ProductList produtos={salgadas} setProdutos={setSalgadas} adicionarAoTicket={adicionarAoTicket} />,
+    doces: () => <ProductList produtos={doces} setProdutos={setDoces} adicionarAoTicket={adicionarAoTicket} />,
+    bebidas: () => <ProductList produtos={bebidas} setProdutos={setBebidas} adicionarAoTicket={adicionarAoTicket} />,
+    diversos: () => <ProductList produtos={diversos} setProdutos={setDiversos} adicionarAoTicket={adicionarAoTicket} />,
   });
 
   const renderTabBar = (props) => (
@@ -364,11 +379,24 @@ const Cardapio = () => {
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
       />
+      <View style={styles.ticketContainer}>
+        <Text style={styles.ticketTitle}>Ticket</Text>
+        <FlatList
+          data={ticket}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.ticketItem}>
+              <Text>{item.nome}</Text>
+              <Text>Quantidade: {item.quantidade}</Text>
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 };
 
-const ProductList = ({ produtos, setProdutos }) => {
+const ProductList = ({ produtos, setProdutos, adicionarAoTicket }) => {
   const renderItem = ({ item }) => (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -376,6 +404,7 @@ const ProductList = ({ produtos, setProdutos }) => {
         <Text style={styles.descricao}>{item.descricao}</Text>
         <Text style={styles.preco}>{item.preco}</Text>
       </View>
+      <Image source={item.imagem} style={styles.imagem} />
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => { decrementQuantity(item.id) }}>
           <Text style={styles.quantityButton}>-</Text>
@@ -384,14 +413,12 @@ const ProductList = ({ produtos, setProdutos }) => {
         <TouchableOpacity onPress={() => { incrementQuantity(item.id) }}>
           <Text style={styles.quantityButton}>+</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.addButton} onPress={() => { /* Ação de adicionar ao ticket */ }}>
+        <TouchableOpacity style={styles.addButton} onPress={() => { adicionarAoTicket(item) }}>
           <Text style={styles.addButtonText}>Adicionar ao Ticket</Text>
         </TouchableOpacity>
       </View>
-      <Image source={item.imagem} style={styles.imagem} />
     </View>
   );
-  
 
   const incrementQuantity = (id) => {
     const updatedProdutos = produtos.map(prod => {
@@ -424,30 +451,41 @@ const ProductList = ({ produtos, setProdutos }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
+    flex: 1,
+    margin: 20,
   },
   backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
     position: 'absolute',
+    width: '100%',
+    height: '100%',
   },
-  tabBar: {
-    backgroundColor: 'transparent',
-    elevation: 0,
-  },
-  tabIndicator: {
+  ticketContainer: {
     backgroundColor: 'white',
+    padding: 20,
+    borderTopWidth: 1,
+    borderColor: '#ccc',
+    marginBottom: 5,
   },
-  tabLabel: {
-    color: 'white',
-    fontSize: 14,
+  ticketTitle: {
+    fontSize: 20,
     fontWeight: 'bold',
+  },
+  ticketItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  produtoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+    marginBottom: 15,
   },
   textContainer: {
     flex: 1,
+    marginLeft: 15,
   },
   nome: {
     fontSize: 18,
@@ -455,44 +493,53 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   descricao: {
-    fontSize: 12,
-    color: 'orange',
-    marginTop: 5,
+    fontSize: 16,
+    color: 'gray',
   },
   preco: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'orange',
+    marginTop: 5,
   },
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   quantityButton: {
-    fontSize: 14,
-    color: 'orange',
-    marginHorizontal: 5,
+    fontWeight: 'bold',
+    color: 'red',
+    paddingHorizontal: 12,
   },
   quantity: {
-    fontSize: 16,
     color: 'white',
-  },
-  imagem: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
+    fontSize: 20,
+    paddingHorizontal: 15,
   },
   addButton: {
-    backgroundColor: 'orange',
+    backgroundColor: 'red',
     borderRadius: 5,
     paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginLeft: 10,
+    paddingVertical: 8,
+    marginLeft: 15,
   },
   addButtonText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 18,
+  },
+  imagem: {
+    width: 100,
+    height: 100,
+  },
+  tabBar: {
+    backgroundColor: 'black', // Altera a cor do cabeçalho para preto
+  },
+  tabIndicator: {
+    backgroundColor: 'white', // Cor do indicador de tab
+  },
+  tabLabel: {
+    color: 'white', // Cor do texto da tab
   },
 });
 
