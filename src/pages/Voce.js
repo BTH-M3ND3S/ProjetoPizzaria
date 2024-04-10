@@ -12,6 +12,7 @@ import MinhConta from '../components/Comp Você/MinhaConta';
 import Configuracoes from '../components/Comp Você/Configuracoes';
 import Qrcode from '../components/Comp Você/Qrcode';
 import { UserContext } from '../Context/UserContext';
+import FotoUser from '../components/Comp Você/FotoUser'
 
 
 export default function Voce() {
@@ -26,6 +27,7 @@ export default function Voce() {
   const [minhaconta, setMinhaConta] = useState(false);
   const [configuracoes, setConfiguracoes] = useState(false);
   const [qrcode, setQrcode] = useState(false);
+  const [fotouser, setFotoUser] = useState(false);
 
 //-------------FAVORITOS---------------------
   if (favoritos === true) {
@@ -125,6 +127,15 @@ function exibirqrcode() {
   setQrcode(true)
 }
 //-------------------------------------------
+if (fotouser === true) {
+  return(
+    <FotoUser handle={ setFotoUser}/>
+  ) 
+}
+function exibirfotouser() {
+  setFotoUser(true)
+}
+const {saldo} = useContext(UserContext)
 
 return (
   <View style={styles.container}>
@@ -132,8 +143,11 @@ return (
     <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
     <View style={styles.enterContainer}>
       <View style={styles.userContainer}>
-        <Ionicons name="person-circle" size={38} color="white" />
+        <Ionicons name="person-circle" size={38} color="white" onPress={exibirfotouser} />
+        <View>
         <Text style={{color: "white", fontSize: 15}}>{usuario}</Text>
+        <Text style={{color: "white", fontSize: 15}}>R${saldo}</Text>
+        </View>
       </View>
       <AntDesign name="qrcode" size={28} color="white"  onPress={exibirqrcode} />
     </View>
@@ -176,7 +190,7 @@ const styles = StyleSheet.create({
   enterContainer: {
     flexDirection: 'row',
     position: 'absolute',
-    top: 60,
+    top: 30,
     left: 30,
     alignItems: 'center',
     justifyContent: "space-between",
@@ -188,14 +202,14 @@ const styles = StyleSheet.create({
   },
   separator: {
     position: 'absolute',
-    top: 120,
+    top: 80,
     left: 30,
     right: 30,
     borderBottomWidth: 2,
     borderBottomColor: 'white',
   },
   listContainer: {
-    marginTop: 170,
+    marginTop: 110,
     paddingHorizontal: 28,
   },
   itemContainer: {

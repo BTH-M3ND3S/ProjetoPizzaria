@@ -142,15 +142,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 40,
     resizeMode: 'contain',
-    marginLeft: 150
+    marginLeft: 45  
   },
   searchButton: {
     backgroundColor: 'transparent',
-  },
-  carouselImage: {
-    width: 300,
-    height: 200,
-    resizeMode: 'cover',
   },
   pizzaContainer: {
     flex: 1,
