@@ -16,25 +16,25 @@ const pizzas = [
   { id: 6, nome: "Pizza", sobrenome: "A Furiosa", avaliacao: 4.9, image: require('../images/image7.png') },
 ];
 
-export default function Home () {
-  const{saldo} = useContext(UserContext)
-  const{usuario} = useContext(UserContext)
+export default function Home() {
+  const { saldo } = useContext(UserContext)
+  const { usuario } = useContext(UserContext)
   const [favorite, setFavorite] = useState([]);
+
   async function AdicionarFavorito(id) {
     try {
       const existepizza = await AsyncStorage.getItem('favoritos');
       let favoritasexistem = existepizza ? JSON.parse(existepizza) : [];
-  
-      if (favoritasexistem.includes(id)) {
+      const filterPizza = favoritasexistem.filter(item => item.id == id);
+      if (filterPizza.length > 0) {
         console.warn(`Pizza com o ID ${id} já está favoritada.`);
         return;
       }
-      favoritasexistem.push(id);
-  
+      const pizza = pizzas.filter(item => item.id == id);
+      favoritasexistem.push( pizza[0] );
       const novafavoritos = JSON.stringify(favoritasexistem);
       await AsyncStorage.setItem('favoritos', novafavoritos);
-  
-      setFavorite(favoritasexistem); 
+      setFavorite(favoritasexistem);
     } catch (error) {
       console.error('Erro ao adicionar a pizza às favoritas:', error);
     }
@@ -49,7 +49,7 @@ export default function Home () {
     return () => unsubscribe();
   }, []);
 
-  const isFavorite = (id) => favorite.includes(id);
+  const isFavorite = (id) => favorite.filter( item => item.id === id );
 
   const renderPizza = ({ item }) => {
     return (
@@ -85,8 +85,8 @@ export default function Home () {
       <Image source={require('../images/imagebg.png')} style={styles.backgroundImage} />
       <View style={styles.navbar}>
         <View>
-          <Text style={{color: "white"}}>{usuario}</Text>
-          <Text style={{color: "white"}}>R${saldo}</Text>
+          <Text style={{ color: "white" }}>{usuario}</Text>
+          <Text style={{ color: "white" }}>R${saldo}</Text>
         </View>
         <Image source={require('../images/logo.png')} style={styles.logo} />
         <TouchableOpacity style={styles.searchButton}>
