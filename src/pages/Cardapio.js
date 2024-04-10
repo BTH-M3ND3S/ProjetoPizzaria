@@ -379,7 +379,7 @@ const Cardapio = () => {
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
       />
-      <View style={styles.ticketContainer}>
+    <View style={styles.ticketContainer}>
         <Text style={styles.ticketTitle}>Ticket</Text>
         <FlatList
           data={ticket}
@@ -388,10 +388,19 @@ const Cardapio = () => {
             <View style={styles.ticketItem}>
               <Text>{item.nome}</Text>
               <Text>Quantidade: {item.quantidade}</Text>
+              <Text>Preço:{item.preco}</Text>
             </View>
           )}
         />
-      </View>
+        <View style={{display: "flex", flexDirection: "row"}}>
+        <TouchableOpacity style={{width: 200,height: 50, backgroundColor: "gray", alignItems: "center", justifyContent: "center"}}>
+          <Text style={{color: 'white', fontSize: 18, textAlign: "center", alignItems: "center"}}>Limpar Ticket</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{width: 200, height: 50, backgroundColor: "red", alignItems: "center", justifyContent: "center"}}>
+          <Text style={{color: 'white', fontSize: 18, textAlign: "center"}}>Adicionar Pedido</Text>
+        </TouchableOpacity>
+        </View>
+        </View>
     </View>
   );
 };
@@ -452,36 +461,42 @@ const ProductList = ({ produtos, setProdutos, adicionarAoTicket }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   backgroundImage: {
     position: 'absolute',
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
   ticketContainer: {
     backgroundColor: 'white',
     padding: 20,
-    borderTopWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 5,
+    marginTop: 10,
   },
   ticketTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
+    marginBottom: 10,
   },
   ticketItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  produtoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   textContainer: {
     flex: 1,
@@ -490,7 +505,7 @@ const styles = StyleSheet.create({
   nome: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
   },
   descricao: {
     fontSize: 16,
@@ -505,6 +520,7 @@ const styles = StyleSheet.create({
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 10,
   },
   quantityButton: {
     fontWeight: 'bold',
@@ -512,7 +528,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   quantity: {
-    color: 'white',
+    color: 'black',
     fontSize: 20,
     paddingHorizontal: 15,
   },
@@ -531,15 +547,18 @@ const styles = StyleSheet.create({
   imagem: {
     width: 100,
     height: 100,
+    borderRadius: 10,
   },
   tabBar: {
-    backgroundColor: 'black', // Altera a cor do cabeçalho para preto
+    backgroundColor: 'black',
   },
   tabIndicator: {
-    backgroundColor: 'white', // Cor do indicador de tab
+    backgroundColor: 'white',
   },
   tabLabel: {
-    color: 'white', // Cor do texto da tab
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
