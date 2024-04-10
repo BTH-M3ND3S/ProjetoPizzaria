@@ -16,7 +16,7 @@ export default function Login() {
   }
   return (
     <View style={styles.container}>
-        <Text>Faça seu Login</Text>
+        <Text style={{fontSize: 30, marginBottom: 40}}>Faça seu Login</Text>
       <TextInput
         style={styles.input}
         placeholder='Email'

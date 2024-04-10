@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import { UserContext } from '../Context/UserContext';
 import PagerView from 'react-native-pager-view';
+import Conversas from '../components/Comp Você/Conversas';
 
 const pizzas = [
   { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },
@@ -19,6 +20,7 @@ export default function Home() {
   const { saldo } = useContext(UserContext);
   const { usuario } = useContext(UserContext);
   const [favorite, setFavorite] = useState([]);
+  const [conversas, setConversas] = useState(false);
 
   async function AdicionarFavorito(id) {
     try {
@@ -63,6 +65,15 @@ export default function Home() {
   }, []);
 
   const isFavorite = (id) => favorite.some(item => item.id === id);
+
+  if (conversas === true) {
+    return(
+      <Conversas handle={ setConversas }/>
+    ) 
+  }
+  function exibirconversas() {
+    setConversas(true)
+  }
 
   const renderPizza = ({ item }) => {
     return (
@@ -110,11 +121,7 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.chatButtonContainer}>
-        <TouchableOpacity style={styles.chatButton}>
-          <FontAwesome name="comments" size={20} color="white" />
-        </TouchableOpacity>
-      </View>
+      
       <View style={styles.container}>
         <PagerView style={styles.container} initialPage={0}>
           <View style={styles.page} key="1">
@@ -136,6 +143,11 @@ export default function Home() {
           keyExtractor={(item) => item.id.toString()}
           numColumns={3}
         />
+        <View style={styles.chatButtonContainer}>
+        <TouchableOpacity style={styles.chatButton} onPress={exibirconversas}>
+          <FontAwesome name="comments" size={20} color="white" />
+        </TouchableOpacity>
+      </View>
       </View>
 
 
