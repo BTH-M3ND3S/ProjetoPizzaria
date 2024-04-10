@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: 'red',
-    marginLeft: 50,
+    marginLeft: 70,
     width: 300,
     height: 50,
     textAlign: "center",

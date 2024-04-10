@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Image, TouchableOpacity, Text, Platform, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { UserContext } from '../../Context/UserContext';
 
 const ImagePickerComponent = ({ handle }) => {
-  const [image, setImage] = useState(null);
+  const {image, setImage} = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
@@ -18,7 +19,6 @@ const ImagePickerComponent = ({ handle }) => {
   }, []);
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -27,6 +27,7 @@ const ImagePickerComponent = ({ handle }) => {
     });
 
     console.log(result);
+    
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);

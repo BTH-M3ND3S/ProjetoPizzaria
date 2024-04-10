@@ -95,7 +95,7 @@ export default function Rotas (){
   const [showMenu, setShowMenu] = useState(false);
 
   if( logado == false ) {
-    return(  <Login /> )
+   // return(  <Login /> )
   }
 
   const ButtonScreen = () => null;

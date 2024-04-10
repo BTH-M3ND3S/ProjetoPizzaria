@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList, ScrollView} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList, ScrollView } from 'react-native';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import { UserContext } from '../Context/UserContext';
 import PagerView from 'react-native-pager-view';
-
-
 
 const pizzas = [
   { id: 1, nome: "Pizza", sobrenome: "Portuguesa", avaliacao: 5.0, image: require('../images/image2.png') },
@@ -18,8 +16,8 @@ const pizzas = [
 ];
 
 export default function Home() {
-  const { saldo } = useContext(UserContext)
-  const { usuario } = useContext(UserContext)
+  const { saldo } = useContext(UserContext);
+  const { usuario } = useContext(UserContext);
   const [favorite, setFavorite] = useState([]);
 
   async function AdicionarFavorito(id) {
@@ -32,7 +30,7 @@ export default function Home() {
         return;
       }
       const pizza = pizzas.filter(item => item.id == id);
-      favoritasexistem.push( pizza[0] );
+      favoritasexistem.push(pizza[0]);
       const novafavoritos = JSON.stringify(favoritasexistem);
       await AsyncStorage.setItem('favoritos', novafavoritos);
       setFavorite(favoritasexistem);
@@ -40,6 +38,20 @@ export default function Home() {
       console.error('Erro ao adicionar a pizza às favoritas:', error);
     }
   };
+
+  const RemoverFavorito = async (id) => {
+    try {
+      const existepizza = await AsyncStorage.getItem('favoritos');
+      let favoritasexistem = existepizza ? JSON.parse(existepizza) : [];
+      favoritasexistem = favoritasexistem.filter(item => item.id !== id);
+      const novafavoritos = JSON.stringify(favoritasexistem);
+      await AsyncStorage.setItem('favoritos', novafavoritos);
+      setFavorite(favoritasexistem);
+    } catch (error) {
+      console.error('Erro ao remover a pizza das favoritas:', error);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       if (!state.isConnected) {
@@ -50,7 +62,7 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  const isFavorite = (id) => favorite.filter( item => item.id === id );
+  const isFavorite = (id) => favorite.some(item => item.id === id);
 
   const renderPizza = ({ item }) => {
     return (
@@ -104,18 +116,18 @@ export default function Home() {
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-      <PagerView style={styles.container} initialPage={0}>
-        <View style={styles.page} key="1">
-          <Image style={{width: "100%", height: "100%"}} source={require('./images/pizza1.jpg')}></Image>
-        </View>
-        <View style={styles.page} key="2">
-        <Image style={{width: "100%", height: "100%"}} source={require('./images/pizza2.jpg')} ></Image>
-        </View>
-        <View style={styles.page} key="3">
-        <Image style={{width: "100%", height: "100%"}} source={require('./images/pizza3.jpg')} ></Image>
-        </View>
-      </PagerView>
-    </View>
+        <PagerView style={styles.container} initialPage={0}>
+          <View style={styles.page} key="1">
+            <Image style={{ width: "100%", height: "100%" }} source={require('./images/pizza1.jpg')}></Image>
+          </View>
+          <View style={styles.page} key="2">
+            <Image style={{ width: "100%", height: "100%" }} source={require('./images/pizza2.jpg')} ></Image>
+          </View>
+          <View style={styles.page} key="3">
+            <Image style={{ width: "100%", height: "100%" }} source={require('./images/pizza3.jpg')} ></Image>
+          </View>
+        </PagerView>
+      </View>
       <Text style={styles.text}>Melhores Avaliados</Text>
       <View style={styles.pizzaContainer}>
         <FlatList
@@ -126,7 +138,7 @@ export default function Home() {
         />
       </View>
 
-      
+
     </View>
   );
 }
@@ -158,7 +170,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 40,
     resizeMode: 'contain',
-    marginLeft: 45  
+    marginLeft: 45
   },
   searchButton: {
     backgroundColor: 'transparent',

@@ -10,6 +10,10 @@ function UserProvider ({children}){
     const [ saldo, setSaldo ] = useState( 0 );
     const[ cartoes, setCartoes] = useState([])
     const[ticket, setTicket] = useState([])
+
+
+    const [image, setImage] = useState(null)
+
     async function Login(email, senha){
         if(email == "mendessilveriomateus@gmail.com" && senha == "12345"){
             await AsyncStorage.setItem("usuario" , "Mateus Mendes")
@@ -28,7 +32,7 @@ function UserProvider ({children}){
     },[])
     return(
         
-        <UserContext.Provider value={{usuario: "Mendes", logado: logado, Login, infoUsuario, saldo: saldo, setSaldo,cartoes:cartoes,setCartoes, ticket: ticket }}>
+        <UserContext.Provider value={{usuario: "Mendes", logado: logado, Login, infoUsuario, saldo: saldo, setSaldo,cartoes:cartoes,setCartoes, ticket: ticket, imagem: image, setImage }}>
             {children}
         </UserContext.Provider>
     )
