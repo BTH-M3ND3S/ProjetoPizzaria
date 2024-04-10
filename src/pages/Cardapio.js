@@ -347,16 +347,21 @@ const Cardapio = () => {
   
 
   const adicionarAoTicket = (produto) => {
-    const index = ticket.findIndex(item => item.id === produto.id);
-    if (index !== -1) {
-      const updatedTicket = [...ticket];
-      updatedTicket[index].quantidade += produto.quantidade;
-      setTicket(updatedTicket);
+    if (produto.quantidade > 0) {
+      const index = ticket.findIndex(item => item.id === produto.id);
+      if (index !== -1) {
+        const updatedTicket = [...ticket];
+        updatedTicket[index].quantidade += produto.quantidade;
+        setTicket(updatedTicket);
+      } else {
+        setTicket([...ticket, { ...produto }]);
+      }
+      console.log(ticket);
+      setVizuTicket(true);
     } else {
-      setTicket([...ticket, { ...produto }]);
+      alert("Coloque uma quantidade de produto válida!")
+      console.log("A quantidade do produto é 0, não será adicionado ao ticket.");
     }
-    console.log( ticket )
-    setVizuTicket(true)
   };
 
   const renderScene = SceneMap({
@@ -383,6 +388,7 @@ const Cardapio = () => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
+        
       />
      {!vizuticket ? <></>:
     <View style={styles.ticketContainer}>
@@ -416,11 +422,14 @@ const ProductList = ({ produtos, setProdutos, adicionarAoTicket }) => {
   const renderItem = ({ item }) => (
     <View style={styles.container}>
       <View style={styles.textContainer}>
+      <Image source={item.imagem} style={styles.imagem} />
+      <View style={{marginLeft: 15, maxWidth: 200}}>
         <Text style={styles.nome}>{item.nome}</Text>
         <Text style={styles.descricao}>{item.descricao}</Text>
         <Text style={styles.preco}>{item.preco}</Text>
+        </View>
       </View>
-      <Image source={item.imagem} style={styles.imagem} />
+      
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => { decrementQuantity(item.id) }}>
           <Text style={styles.quantityButton}>-</Text>
@@ -507,7 +516,8 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    marginLeft: 15,
+    flexDirection: "row",
+    marginLeft: 5.5
   },
   nome: {
     fontSize: 18,
@@ -564,7 +574,7 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: 'bold',
   },
 });

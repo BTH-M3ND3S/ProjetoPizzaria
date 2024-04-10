@@ -41,7 +41,6 @@ export default function Favoritos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
   },
   pizzaItem: {
     marginBottom: 10,

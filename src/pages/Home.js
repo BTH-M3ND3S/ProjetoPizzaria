@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList, ScrollView} from 'react-native';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import { UserContext } from '../Context/UserContext';
+import PagerView from 'react-native-pager-view';
 
 
 
@@ -96,6 +97,25 @@ export default function Home() {
           <Entypo name="bell" size={24} color="red" />
         </TouchableOpacity>
       </View>
+
+      <View style={styles.chatButtonContainer}>
+        <TouchableOpacity style={styles.chatButton}>
+          <FontAwesome name="comments" size={20} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+      <PagerView style={styles.container} initialPage={0}>
+        <View style={styles.page} key="1">
+          <Image style={{width: "100%", height: "100%"}} source={require('./images/pizza1.jpg')}></Image>
+        </View>
+        <View style={styles.page} key="2">
+        <Image style={{width: "100%", height: "100%"}} source={require('./images/pizza2.jpg')} ></Image>
+        </View>
+        <View style={styles.page} key="3">
+        <Image style={{width: "100%", height: "100%"}} source={require('./images/pizza3.jpg')} ></Image>
+        </View>
+      </PagerView>
+    </View>
       <Text style={styles.text}>Melhores Avaliados</Text>
       <View style={styles.pizzaContainer}>
         <FlatList
@@ -106,11 +126,7 @@ export default function Home() {
         />
       </View>
 
-      <View style={styles.chatButtonContainer}>
-        <TouchableOpacity style={styles.chatButton}>
-          <FontAwesome name="comments" size={20} color="white" />
-        </TouchableOpacity>
-      </View>
+      
     </View>
   );
 }
@@ -235,7 +251,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chatButton: {
+    position: "absolute",
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  page: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
