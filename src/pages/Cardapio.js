@@ -342,6 +342,9 @@ const Cardapio = () => {
     
 
   const [ticket, setTicket] = useState([]);
+  const[ vizuticket, setVizuTicket] = useState(false)
+
+  
 
   const adicionarAoTicket = (produto) => {
     const index = ticket.findIndex(item => item.id === produto.id);
@@ -352,6 +355,8 @@ const Cardapio = () => {
     } else {
       setTicket([...ticket, { ...produto }]);
     }
+    console.log( ticket )
+    setVizuTicket(true)
   };
 
   const renderScene = SceneMap({
@@ -379,6 +384,7 @@ const Cardapio = () => {
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
       />
+     {!vizuticket ? <></>:
     <View style={styles.ticketContainer}>
         <Text style={styles.ticketTitle}>Ticket</Text>
         <FlatList
@@ -393,7 +399,7 @@ const Cardapio = () => {
           )}
         />
         <View style={{display: "flex", flexDirection: "row"}}>
-        <TouchableOpacity style={{width: 200,height: 50, backgroundColor: "gray", alignItems: "center", justifyContent: "center"}}>
+        <TouchableOpacity onPress={()=> {setTicket([]); setVizuTicket(false) }} style={{width: 200,height: 50, backgroundColor: "gray", alignItems: "center", justifyContent: "center"}}>
           <Text style={{color: 'white', fontSize: 18, textAlign: "center", alignItems: "center"}}>Limpar Ticket</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{width: 200, height: 50, backgroundColor: "red", alignItems: "center", justifyContent: "center"}}>
@@ -401,6 +407,7 @@ const Cardapio = () => {
         </TouchableOpacity>
         </View>
         </View>
+     }
     </View>
   );
 };
