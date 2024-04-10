@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, TouchableOpacity, Modal, TextInput, StyleSheet, Image, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AntDesign } from '@expo/vector-icons';
+import { UserContext } from '../../Context/UserContext';
 
 export default function Pagamentos({ handle }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -10,7 +11,7 @@ export default function Pagamentos({ handle }) {
   const [nomeTitular, setNomeTitular] = useState('');
   const [dataValidade, setDataValidade] = useState('');
   const [cvc, setCvc] = useState('');
-  const [cartoes, setCartoes] = useState([]);
+  const [cartoes, setCartoes] = useState([  ]);
   const [cartaoCadastrado, setCartaoCadastrado] = useState(false);
 
   useEffect(() => {

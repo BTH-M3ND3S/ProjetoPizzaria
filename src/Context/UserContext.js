@@ -9,7 +9,6 @@ function UserProvider ({children}){
     const [logado, setLogado] = useState(false);
     const [ saldo, setSaldo ] = useState( 0 );
     const[ cartoes, setCartoes] = useState([])
-
     async function Login(email, senha){
         if(email == "mendessilveriomateus@gmail.com" && senha == "12345"){
             await AsyncStorage.setItem("usuario" , "Mateus Mendes")

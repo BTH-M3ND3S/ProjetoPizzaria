@@ -12,7 +12,8 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import UserProvider from '../../Context/UserContext';
+import { UserContext } from '../../Context/UserContext';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -55,7 +56,7 @@ export default function AdicionarPedido({ handle}) {
     });
   }, []);
 
-  const {saldo} = useContext(UserProvider)
+  const {saldo, setSaldo} = useContext(UserContext)
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleAddToCart = (item) => {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar, FlatList } from 'react-native';
-//import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { FontAwesome, AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
@@ -23,24 +22,21 @@ export default function Home () {
   const [favorite, setFavorite] = useState([]);
   async function AdicionarFavorito(id) {
     try {
-      const favorites = await AsyncStorage.getItem('favorites');
-      let favoritesArray = favorites ? JSON.parse(favorites) : [];
-
-      const index = favoritesArray.indexOf(id);
-      if (index !== -1) {
-        favoritesArray.splice(index, 1);
-        console.log("Removida do async storage")
-      } else {
-        favoritesArray.push(id);
-        console.log("Adicionado ao async storage com sucesso")
+      const existepizza = await AsyncStorage.getItem('favoritos');
+      let favoritasexistem = existepizza ? JSON.parse(existepizza) : [];
+  
+      if (favoritasexistem.includes(id)) {
+        console.warn(`Pizza com o ID ${id} já está favoritada.`);
+        return;
       }
-
-      await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
-
-      setFavorite(favoritesArray);
-
+      favoritasexistem.push(id);
+  
+      const novafavoritos = JSON.stringify(favoritasexistem);
+      await AsyncStorage.setItem('favoritos', novafavoritos);
+  
+      setFavorite(favoritasexistem); 
     } catch (error) {
-      console.error('Erro ao acessar AsyncStorage: ', error);
+      console.error('Erro ao adicionar a pizza às favoritas:', error);
     }
   };
   useEffect(() => {
@@ -70,6 +66,7 @@ export default function Home () {
         <TouchableOpacity
           style={styles.heartIconContainer}
           onPress={() => AdicionarFavorito(item.id)}
+          onLongPress={() => RemoverFavorito(item.id)}
         >
           <FontAwesome
             name={isFavorite(item.id) ? "heart" : "heart-o"}
