@@ -21,6 +21,7 @@ export default function Home() {
   const { usuario } = useContext(UserContext);
   const [favorite, setFavorite] = useState([]);
   const [conversas, setConversas] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
 
   async function AdicionarFavorito(id) {
     try {
@@ -121,20 +122,35 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      
-      <View style={styles.container}>
-        <PagerView style={styles.container} initialPage={0}>
-          <View style={styles.page} key="1">
-            <Image style={{ width: "100%", height: "100%" }} source={require('./images/pizza1.jpg')}></Image>
-          </View>
-          <View style={styles.page} key="2">
-            <Image style={{ width: "100%", height: "100%" }} source={require('./images/pizza2.jpg')} ></Image>
-          </View>
-          <View style={styles.page} key="3">
-            <Image style={{ width: "100%", height: "100%" }} source={require('./images/pizza3.jpg')} ></Image>
-          </View>
+      <View style={styles.carouselContainer}>
+        <PagerView style={styles.container2} initialPage={0} onPageSelected={(event) => setCurrentPage(event.nativeEvent.position)}>
+            <View style={styles.page} key={"1"}>
+              <Image style={{ width: "100%", height: "100%" }} source={require("./images/pizza1.jpg")} />
+            </View>
+            <View style={styles.page} key={"2"}>
+              <Image style={{ width: "100%", height: "100%" }} source={require("./images/pizza2.jpg")} />
+            </View>
+            <View style={styles.page} key={"3"}>
+              <Image style={{ width: "100%", height: "100%" }} source={require("./images/pizza3.jpg")} />
+            </View>
+            <View style={styles.page} key={"4"}>
+              <Image style={{ width: "100%", height: "100%" }} source={require("./images/pizza3.jpg")} />
+            </View>
+            <View style={styles.page} key={"5"}>
+              <Image style={{ width: "100%", height: "100%" }} source={require("./images/pizza3.jpg")} />
+            </View>
+            <View style={styles.page} key={"6"}>
+              <Image style={{ width: "100%", height: "100%" }} source={require("./images/pizza3.jpg")} />
+            </View>
+        
         </PagerView>
+        <View style={styles.pagination}>
+          {pizzas.map((_, index) => (
+            <View key={index} style={[styles.dot, index === currentPage ? styles.activeDot : styles.inactiveDot]} />
+          ))}
+        </View>
       </View>
+
       <Text style={styles.text}>Melhores Avaliados</Text>
       <View style={styles.pizzaContainer}>
         <FlatList
@@ -144,13 +160,11 @@ export default function Home() {
           numColumns={3}
         />
         <View style={styles.chatButtonContainer}>
-        <TouchableOpacity style={styles.chatButton} onPress={exibirconversas}>
-          <FontAwesome name="comments" size={20} color="white" />
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.chatButton} onPress={exibirconversas}>
+            <FontAwesome name="comments" size={20} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
-      </View>
-
-
     </View>
   );
 }
@@ -159,6 +173,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  container2: {
+    width: "80%",
+    height: 200,
+  },
+  page: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: "100%",
+    height: "100%"
   },
   carouselContainer: {
     alignItems: 'center',
@@ -248,10 +272,15 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
+    backgroundColor: 'lightgray',
+    marginHorizontal: 4,
+  },
+  activeDot: {
     backgroundColor: 'red',
   },
-  inactiveDot: {
-    backgroundColor: 'lightgray',
+  pagination: {
+    flexDirection: 'row',
+    marginTop: 10,
   },
   text: {
     color: "white",
@@ -276,10 +305,6 @@ const styles = StyleSheet.create({
   },
   chatButton: {
     position: "absolute",
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  page: {
     justifyContent: 'center',
     alignItems: 'center',
   },
