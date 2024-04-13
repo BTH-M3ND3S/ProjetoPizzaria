@@ -1,55 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Image, TouchableOpacity, Alert } from 'react-native';
+import { useState } from 'react';
+import { Button, Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
+import { Ionicons } from '@expo/vector-icons'; // ou qualquer outra biblioteca de ícones
 
-export default function MinhaConta({ handle }) {
+export default function MinhaConta({handle}) {
   const [perfil, setPerfil] = useState({
-    nome: "Usuário Exemplo",
-    foto: null,
-    idade: 25,
-    email: "exemplo@email.com",
-    cidade: "Exemplópolis",
-    // Adicione mais informações conforme necessário
-  });
+    nome: "mateus Mendes",
+    email: "mendessilveriomateus@gmail.com",
+    telefone: "(00)00000-0000",
+    Cpf: "123456789123"
 
-  useEffect(() => {
-    // Solicitar permissão para acessar a galeria de fotos
-    (async () => {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permissão necessária', 'É preciso permitir acesso à galeria de fotos para mudar a foto de perfil.');
-      }
-    })();
-  }, []);
+  })
+  const [image, setImage] = useState(null);
 
-  const escolherFoto = async () => {
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [1, 1],
+      aspect: [4, 3],
       quality: 1,
     });
 
-    if (!result.cancelled) {
-      setPerfil({ ...perfil, foto: result.uri });
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
   };
 
+
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <TouchableOpacity onPress={escolherFoto}>
-        {perfil.foto ? (
-          <Image source={{ uri: perfil.foto }} style={{ width: 200, height: 200, borderRadius: 100 }} />
-        ) : (
-          <Text style={{ fontSize: 24, marginBottom: 10 }}>Escolher Foto</Text>
-        )}
+    <View style={styles.container}>
+      <Image source={require('./imagebg.png')} style={styles.backgroundImage} />
+      <TouchableOpacity onPress={() => handle(false)} style={{ position: 'absolute', top: 20, left: 20 }}>
+        <View style={{ backgroundColor: 'red', borderRadius: 50, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
+          <Icon name="arrow-left" size={20} color="white" />
+        </View>
       </TouchableOpacity>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20 }}>{perfil.nome}</Text>
-      <Text style={{ fontSize: 18, marginTop: 10 }}>Idade: {perfil.idade}</Text>
-      <Text style={{ fontSize: 18 }}>Email: {perfil.email}</Text>
-      <Text style={{ fontSize: 18 }}>Cidade: {perfil.cidade}</Text>
-      {/* Adicione mais informações conforme necessário */}
-      <Button title="Voltar" onPress={() => handle(false)} />
+      <View>
+      <TouchableOpacity onPress={pickImage} style={{ flexDirection: 'row', alignItems: 'center' }}>
+  {image ? (
+    <Image source={{ uri: image }} style={styles.image} />
+  ) : (
+    <Ionicons name="person-circle-outline" size={300} color="white" style={{ marginRight: 5 }} />
+  )}
+</TouchableOpacity>
+        
+      </View>
+      <View style={{alignItems: "center", backgroundColor: 'white',width: 400, borderRadius:20, height: 300, justifyContent: "center"}}>
+        <Text style={{  fontSize: 30 }}> Nome do perfil: </Text>
+        <Text style={{  }}> {perfil.nome}</Text>
+        <Text style={{ fontSize: 30}}> Email: </Text>
+        <Text style={{  }}>{perfil.email}</Text>
+        <Text style={{ fontSize: 30 }}> telefone: </Text>
+        <Text style={{ }}> {perfil.telefone}</Text>
+        <Text style={{fontSize: 30 }}> Cpf:</Text>
+        <Text style={{ }}>{perfil.Cpf}</Text>
+      </View>
     </View>
+
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 120
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+});
