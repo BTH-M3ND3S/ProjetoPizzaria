@@ -1,36 +1,24 @@
   import React, { useState, useEffect, useContext } from 'react';
-  import AsyncStorage from '@react-native-async-storage/async-storage';
   import {
     View,
     Text,
     StyleSheet,
     TouchableOpacity,
     Image,
-    Button
+    Button,
+    FlatList
   } from 'react-native';
   import Icon from 'react-native-vector-icons/FontAwesome';
-  import { UserContext } from '../../Context/UserContext';
+  import UserProvider, { UserContext } from '../../Context/UserContext';
   import Pagamento from './Pagamento';
-  import { RadioButton } from 'react-native-paper';
+ 
 
 
 
 
   export default function AdicionarPedido({ handle }) {
     const[ pagamento, setPagamento] = useState(false)
-    const[ cartaoselect, setCartaoSelect] = useState(false)
-    const[ pixselect, setPixSelect]= useState(false)
-    const[ saldocontaselect, setSaldoContaSelect]= useState(false)
-
-
-    const [cartoes, setCartoes] = useState([]);
-    useEffect(() => {
-      AsyncStorage.getItem('cartoes').then((value) => {
-        if (value) {
-          setCartoes(JSON.parse(value));
-        }
-      });
-    }, []);
+    
 
     if (pagamento === true) {
       return (
@@ -41,64 +29,24 @@
       setPagamento(true)  
     }
 
-
-    const { saldo } = useContext(UserContext)
+    const {ticket1} = useContext(UserContext)
 
     return (
       <View style={styles.container}>
         <Image source={require('../Comp Você/imagebg.png')} style={styles.backgroundImage} />
-      <View style={styles.container2}>
-      <Text style={{fontSize: 25}}>Pague por pix:</Text>
-        <View style={styles.Pixdiv}>
-        <RadioButton
-        value={pixselect}
-        status={ pixselect === true ? 'checked' : 'unchecked' }
-        onPress={() => 
-        {
-          setCartaoSelect(false)
-          setPixSelect(true)
-          setSaldoContaSelect(false)
-
-        }}
-      />
+        <View>
+        <FlatList
+          data={ticket1}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.ticketItem}>
+              <Text>{item.nome}</Text>
+              <Text>Quantidade: {item.quantidade}</Text>
+              <Text>Preço:{item.preco}</Text>
+            </View>
+          )}></FlatList>
         </View>
-        <Text style={{fontSize: 25}}>Pague com seu cartão:</Text>
-        <View style={styles.Cartaodiv}>
-        <RadioButton
-        value={cartaoselect}
-        status={ cartaoselect === true ? 'checked' : 'unchecked' }
-        onPress={() => 
-          {
-            setCartaoSelect(true)
-            setPixSelect(false)
-            setSaldoContaSelect(false)
-          
-          }}
-      />
-
-        {cartoes.map((cartao, index) => (
-              <View key={index}>
-                <Text style={{color: "white"}}>Número: {cartao.numero}</Text>
-                <Text style={{color: "white"}}>Titular: {cartao.nomeTitular}</Text>
-                <Text style={{color: "white"}}>Validade: {cartao.dataValidade}</Text>
-                <Text style={{color: "white"}}>CVC: {cartao.cvc}</Text>
-              </View>))}
-        </View>
-        <Text style={{fontSize: 25}}>Pague com seu Saldo da conta:</Text>
-        <View style={styles.SaldoContadv}>
-        <RadioButton
-        value={saldocontaselect}
-        status={ saldocontaselect === true ? 'checked' : 'unchecked' }
-        onPress={() => 
-          {
-            setSaldoContaSelect(true)
-            setPixSelect(false)
-            setCartaoSelect(false)
-          }}
-      />
-
-        </View>
-        </View>
+     
 
 
 
@@ -130,35 +78,6 @@
       height: '100%',
       justifyContent: "center",
       alignItems: "center"
-    },
-    container2: {
-      width: "90%",
-      height: 600,
-      backgroundColor: "white",
-      borderRadius: 20,
-      justifyContent: "space-around",
-      alignItems: "center"
-    },
-    Cartaodiv: {
-      width: "100%",
-      height: 100,
-      backgroundColor: "gray",
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: 'space-between',
-      alignItems: "center"
-    },
-    Pixdiv: {
-      width: "100%",
-      height: 100,
-      backgroundColor: "gray",
-      justifyContent: "center",
-    },
-    SaldoContadv: {
-      width: "100%",
-      height: 100,
-      backgroundColor: "gray",
-      justifyContent: "center",
     },
     backgroundImage: {
       flex: 1,
@@ -194,4 +113,9 @@
       color: 'white',
       fontSize: 16,
     },
+    ticketItem: {flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
   });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import Img1 from '../images/image2.png';
@@ -29,6 +29,7 @@ import DoceLeite from '../images/DoceLeite.png'
 import Nutella from '../images/Nutella.png'
 import MorangoComChocolate from '../images/MorangoComChocolate.png'
 import Banana from '../images/Banana.png'
+import { UserContext } from '../Context/UserContext';
 
 const Cardapio = () => {
   const [index, setIndex] = useState(0);
@@ -116,7 +117,7 @@ const Cardapio = () => {
 
   const [doces, setDoces] = useState([
     {
-      id: 1,
+      id: 10,
       nome: 'Pizza Doce de Chocolate',
       preco: 'R$ 35,00',
       descricao: 'Chocolate, morangos e chantilly.',
@@ -124,7 +125,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 2,
+      id: 11,
       nome: 'Pizza Doce de Banana',
       preco: 'R$ 32,00',
       descricao: 'Banana, açúcar e canela.',
@@ -132,7 +133,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 3,
+      id: 12,
       nome: 'Pizza Doce de Morango',
       preco: 'R$ 34,00',
       descricao: 'Morango fresco e leite condensado.',
@@ -140,7 +141,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 4,
+      id: 13,
       nome: 'Pizza Doce de Nutella',
       preco: 'R$ 38,00',
       descricao: 'Nutella e morangos.',
@@ -148,7 +149,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 5,
+      id: 14,
       nome: 'Pizza Doce de Romeu e Julieta',
       preco: 'R$ 33,00',
       descricao: 'Goiabada e queijo.',
@@ -156,7 +157,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 6,
+      id: 15,
       nome: 'Pizza Doce de Brigadeiro',
       preco: 'R$ 36,00',
       descricao: 'Brigadeiro e granulado.',
@@ -164,7 +165,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 7,
+      id: 16,
       nome: 'Pizza Doce de Prestígio',
       preco: 'R$ 37,00',
       descricao: 'Chocolate e coco ralado.',
@@ -172,7 +173,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 8,
+      id: 17,
       nome: 'Pizza Doce de Morango com Chocolate Branco',
       preco: 'R$ 39,00',
       descricao: 'Morango e chocolate branco.',
@@ -180,7 +181,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 9,
+      id: 18,
       nome: 'Pizza Doce de Doce de Leite',
       preco: 'R$ 38,00',
       descricao: 'Doce de leite e coco ralado.',
@@ -191,7 +192,7 @@ const Cardapio = () => {
 
   const [bebidas, setBebidas] = useState([
     {
-      id: 1,
+      id: 19,
       nome: 'Refrigerante Coca-Cola',
       preco: 'R$ 5,00',
       descricao: 'Lata 350ml',
@@ -199,7 +200,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 2,
+      id: 20,
       nome: 'Refrigerante Coca-Cola Zero',
       preco: 'R$ 5,00',
       descricao: 'Lata 350ml.',
@@ -207,7 +208,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 3,
+      id: 21,
       nome: 'Refrigerante Pepsi',
       preco: 'R$ 4,50',
       descricao: 'Lata 350ml',
@@ -215,7 +216,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 4,
+      id: 22,
       nome: 'Refrigerante Pepsi Black',
       preco: 'R$ 4,50',
       descricao: 'Lata 350ml',
@@ -223,7 +224,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 5,
+      id: 23,
       nome: 'Água Mineral Crystal sem Gás',
       preco: 'R$ 3,50',
       descricao: 'Garrafinha 500ml',
@@ -231,7 +232,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 6,
+      id: 24,
       nome: 'Água Mineral Crystal com Gás',
       preco: 'R$ 3,50',
       descricao: 'Garrafinha 500ml',
@@ -239,7 +240,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 7,
+      id: 25,
       nome: 'Suco de Laranja Natural',
       preco: 'R$ 7,00',
       descricao: 'Copo 300ml',
@@ -247,7 +248,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 8,
+      id: 26,
       nome: 'Suco de Morango Polpa',
       preco: 'R$ 7,00',
       descricao: 'Copo 300ml',
@@ -255,7 +256,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 9,
+      id: 27,
       nome: 'Suco de Maracujá Polpa',
       preco: 'R$ 7,00',
       descricao: 'Copo 300ml',
@@ -266,7 +267,7 @@ const Cardapio = () => {
 
   const [diversos, setDiversos] = useState([
     {
-      id: 1,
+      id: 28,
       nome: 'Trident Hortelã/Menta',
       preco: 'R$ 2,50',
       descricao: 'Unidade',
@@ -274,7 +275,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 2,
+      id: 29,
       nome: 'Trident Tutti-Frutti',
       preco: 'R$ 2,50',
       descricao: 'Unidade',
@@ -282,7 +283,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 3,
+      id: 30,
       nome: 'Halls Menta Prata',
       preco: 'R$ 2,00',
       descricao: 'Unidade',
@@ -290,7 +291,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 4,
+      id: 31,
       nome: 'Halls Menta',
       preco: 'R$ 2,00',
       descricao: 'Unidade',
@@ -298,7 +299,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 5,
+      id: 32,
       nome: 'Bala Chita Abacaxi',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
@@ -306,7 +307,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 6,
+      id: 33,
       nome: 'Bala Chita Framboesa',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
@@ -314,7 +315,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 7,
+      id: 34,
       nome: 'Bala Chita Menta',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
@@ -322,7 +323,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 8,
+      id: 35,
       nome: 'Bala Chita Uva',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
@@ -330,7 +331,7 @@ const Cardapio = () => {
       quantidade: 0
     },
     {
-      id: 9,
+      id: 36,
       nome: 'Bala Yogurte',
       preco: 'R$ 0,50',
       descricao: 'Unidade',
@@ -339,12 +340,22 @@ const Cardapio = () => {
     }
   ]);
 
-    
+
 
   const [ticket, setTicket] = useState([]);
-  const[ vizuticket, setVizuTicket] = useState(false)
+  const [vizuticket, setVizuTicket] = useState(false)
+  //const [totalTicket, setTotalTicket] = useState(0);
+  const { totalTicket, setTotalTicket } = useContext(UserContext)
+  useEffect(() => {
+    let total = 0;
+    ticket.forEach(item => {
+      const precoNumerico = parseFloat(item.preco.replace('R$', '').replace(',', '.'));
+      total += precoNumerico * item.quantidade;
+    });
+    setTotalTicket(total);
+  }, [ticket]);
 
-  
+
 
   const adicionarAoTicket = (produto) => {
     if (produto.quantidade > 0) {
@@ -356,8 +367,9 @@ const Cardapio = () => {
       } else {
         setTicket([...ticket, { ...produto }]);
       }
-      console.log(ticket);
+
       setVizuTicket(true);
+
     } else {
       alert("Coloque uma quantidade de produto válida!")
       console.log("A quantidade do produto é 0, não será adicionado ao ticket.");
@@ -388,32 +400,33 @@ const Cardapio = () => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
-        
+
       />
-     {!vizuticket ? <></>:
-    <View style={styles.ticketContainer}>
-        <Text style={styles.ticketTitle}>Ticket</Text>
-        <FlatList
-          data={ticket}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.ticketItem}>
-              <Text>{item.nome}</Text>
-              <Text>Quantidade: {item.quantidade}</Text>
-              <Text>Preço:{item.preco}</Text>
-            </View>
-          )}
-        />
-        <View style={{display: "flex", flexDirection: "row"}}>
-        <TouchableOpacity onPress={()=> {setTicket([]); setVizuTicket(false) }} style={{width: 200,height: 50, backgroundColor: "gray", alignItems: "center", justifyContent: "center"}}>
-          <Text style={{color: 'white', fontSize: 18, textAlign: "center", alignItems: "center"}}>Limpar Ticket</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{width: 200, height: 50, backgroundColor: "red", alignItems: "center", justifyContent: "center"}}>
-          <Text style={{color: 'white', fontSize: 18, textAlign: "center"}}>Adicionar Pedido</Text>
-        </TouchableOpacity>
+      {!vizuticket ? <></> :
+        <View style={styles.ticketContainer}>
+          <Text style={styles.ticketTitle}>Ticket</Text>
+          <FlatList
+            data={ticket}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.ticketItem}>
+                <Text>{item.nome}</Text>
+                <Text>Quantidade: {item.quantidade}</Text>
+                <Text>Preço:{item.preco}</Text>
+                <Text>{totalTicket}</Text>
+              </View>
+            )}
+          />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <TouchableOpacity onPress={() => { setTicket([]); setVizuTicket(false) }} style={{ width: 200, height: 50, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}>
+              <Text style={{ color: 'white', fontSize: 18, textAlign: "center", alignItems: "center" }}>Limpar Ticket</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ width: 200, height: 50, backgroundColor: "red", alignItems: "center", justifyContent: "center" }}>
+              <Text style={{ color: 'white', fontSize: 18, textAlign: "center" }}>Adicionar Pedido</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        </View>
-     }
+      }
     </View>
   );
 };
@@ -422,14 +435,14 @@ const ProductList = ({ produtos, setProdutos, adicionarAoTicket }) => {
   const renderItem = ({ item }) => (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-      <Image source={item.imagem} style={styles.imagem} />
-      <View style={{marginLeft: 15, maxWidth: 200}}>
-        <Text style={styles.nome}>{item.nome}</Text>
-        <Text style={styles.descricao}>{item.descricao}</Text>
-        <Text style={styles.preco}>{item.preco}</Text>
+        <Image source={item.imagem} style={styles.imagem} />
+        <View style={{ marginLeft: 15, maxWidth: 200 }}>
+          <Text style={styles.nome}>{item.nome}</Text>
+          <Text style={styles.descricao}>{item.descricao}</Text>
+          <Text style={styles.preco}>{item.preco}</Text>
         </View>
       </View>
-      
+
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => { decrementQuantity(item.id) }}>
           <Text style={styles.quantityButton}>-</Text>
@@ -555,6 +568,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     marginLeft: 15,
+    width: 230,
+    alignItems: "center"
   },
   addButtonText: {
     color: 'white',

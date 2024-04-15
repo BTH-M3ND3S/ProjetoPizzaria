@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Button, TouchableOpacity, Modal, TextInput, StyleSheet, Image, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, TouchableOpacity, Modal, TextInput, StyleSheet, Image, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { AntDesign } from '@expo/vector-icons';
-import { UserContext } from '../../Context/UserContext';
 
 export default function Pagamentos({ handle }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -11,7 +9,7 @@ export default function Pagamentos({ handle }) {
   const [nomeTitular, setNomeTitular] = useState('');
   const [dataValidade, setDataValidade] = useState('');
   const [cvc, setCvc] = useState('');
-  const [cartoes, setCartoes] = useState([  ]);
+  const [cartoes, setCartoes] = useState([]);
   const [cartaoCadastrado, setCartaoCadastrado] = useState(false);
 
   useEffect(() => {
@@ -38,10 +36,10 @@ export default function Pagamentos({ handle }) {
 
     // Validar o formato do número do cartão (adicionar sua lógica de validação aqui)
     const regexNumeroCartao = /^[0-9]{16}$/; // Verifica se o número tem 16 dígitos
-  if (!regexNumeroCartao.test(numeroCartao)) {
-    Alert.alert('Erro', 'Número do cartão inválido. Por favor, insira um número válido.');
-    return;
-  }
+    if (!regexNumeroCartao.test(numeroCartao)) {
+      Alert.alert('Erro', 'Número do cartão inválido. Por favor, insira um número válido.');
+      return;
+    }
 
     // Validar o formato da data de validade (adicionar sua lógica de validação aqui)
     const regexDataValidade = /^(0[1-9]|1[0-2])\/[0-9]{2}$/; // Verifica se está no formato MM/AA
@@ -83,35 +81,37 @@ export default function Pagamentos({ handle }) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <Image source={require('./imagebg.png')} style={styles.backgroundImage} />
-      <TouchableOpacity onPress={() => handle(false)} style={{ position: 'absolute', top: 20, left: 20 }}>
-        <View style={{ backgroundColor: 'red', borderRadius: 50, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
-          <Icon name="arrow-left" size={20} color="white" />
-        </View>
+      <TouchableOpacity onPress={() => handle(false)} style={styles.backButton}>
+        <AntDesign name="arrowleft" size={24} color="white" />
       </TouchableOpacity>
       {!cartaoCadastrado && (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <AntDesign name="frown" size={64} color="white" />
-          <Text style={styles.textocartao}>Você não possui cartão cadastrado</Text>
+        <View style={styles.noCardContainer}>
+          <AntDesign name="frowno" size={64} color="white" />
+          <Text style={styles.noCardText}>Você não possui cartão cadastrado</Text>
         </View>
       )}
       {cartaoCadastrado && cartoes.length > 0 && (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{color: "white", fontSize: 30}}>Seus cartões cadastrados:</Text>
-          {cartoes.map((cartao, index) => (
-            <View key={index}>
-              <Text style={{color: "white"}}>Número: {cartao.numero}</Text>
-              <Text style={{color: "white"}}>Titular: {cartao.nomeTitular}</Text>
-              <Text style={{color: "white"}}>Validade: {cartao.dataValidade}</Text>
-              <Text style={{color: "white"}}>CVC: {cartao.cvc}</Text>
-              <Button title="Remover Cartão" onPress={() => removerCartao(index)} />
-            </View>
-          ))}
-        </View>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.cardContainer}>
+            <Text style={styles.cardHeader}>Seus cartões cadastrados:</Text>
+            {cartoes.map((cartao, index) => (
+              <View style={styles.card} key={index}>
+                <Text style={styles.cardText}>Número: {cartao.numero}</Text>
+                <Text style={styles.cardText}>Titular: {cartao.nomeTitular}</Text>
+                <Text style={styles.cardText}>Validade: {cartao.dataValidade}</Text>
+                <Text style={styles.cardText}>CVC: {cartao.cvc}</Text>
+                <TouchableOpacity style={styles.removeButton} onPress={() => removerCartao(index)}>
+                  <Text style={styles.removeButtonText}>Remover Cartão</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
       )}
-      <TouchableOpacity style={styles.botaoadicionar} onPress={() => setModalVisible(true)}>
-        <Text style={{ color: 'white', fontSize: 18, textAlign: "center" }}>Adicionar Cartão</Text>
+      <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+        <Text style={styles.addButtonText}>Adicionar Cartão</Text>
       </TouchableOpacity>
       <Modal
         animationType="slide"
@@ -121,66 +121,134 @@ export default function Pagamentos({ handle }) {
           setModalVisible(false);
         }}
       >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
             <TextInput
-              style={{ borderBottomWidth: 1, marginBottom: 10 }}
+              style={styles.input}
               placeholder="Número do Cartão"
               value={numeroCartao}
               onChangeText={(text) => setNumeroCartao(text)}
             />
             <TextInput
-              style={{ borderBottomWidth: 1, marginBottom: 10 }}
+              style={styles.input}
               placeholder="Nome do Titular"
               value={nomeTitular}
               onChangeText={(text) => setNomeTitular(text)}
             />
             <TextInput
-              style={{ borderBottomWidth: 1, marginBottom: 10 }}
+              style={styles.input}
               placeholder="Data de Validade (MM/AA)"
               value={dataValidade}
               onChangeText={(text) => setDataValidade(text)}
             />
             <TextInput
-              style={{ borderBottomWidth: 1, marginBottom: 20 }}
+              style={styles.input}
               placeholder="CVC"
               value={cvc}
               onChangeText={(text) => setCvc(text)}
             />
-            <Button title="Adicionar" onPress={adicionarCartao} />
+            <Button color= "red" title="Adicionar" onPress={adicionarCartao} />
           </View>
         </View>
       </Modal>
     </View>
   );
 }
-const styles = StyleSheet.create({
 
-  backgroundImage: {
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
-    resizeMode: 'cover',
+    alignItems: 'center',
+  },
+  backgroundImage: {
     position: 'absolute',
     width: '100%',
     height: '100%',
   },
-
-  textocartao: {
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
+  noCardContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noCardText: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 18,
-    padding: 18
+    marginTop: 20,
   },
-  botaoadicionar: {
+  scrollView: {
+    flexGrow: 1,
+    alignItems: 'center',
+  },
+  cardContainer: {
+    marginTop: 50,
+  },
+  cardHeader: {
+    color: 'white',
+    fontSize: 20,
+    marginBottom: 10,
+  },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cardText: {
+    color: 'black',
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  removeButton: {
+    backgroundColor: 'red',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+  },
+  removeButtonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  addButton: {
     position: 'absolute',
     bottom: 50,
     backgroundColor: 'red',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: 'red',
-    marginLeft: 70,
-    width: 300,
-    height: 50,
-    textAlign: "center",
-    justifyContent: "center"
-  }
-})
+    borderRadius: 5,
+  },
+  addButtonText: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+  },
+  input: {
+    borderBottomWidth: 1,
+    marginBottom: 10,
+  },
+});

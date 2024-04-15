@@ -8,8 +8,9 @@ function UserProvider ({children}){
     const [usuario, setUsuario] = useState(null);
     const [logado, setLogado] = useState(false);
     const [ saldo, setSaldo ] = useState( 0 );
-    const[ cartoes, setCartoes] = useState([])
-    const[ticket, setTicket] = useState([])
+    const[ cartoes, setCartoes] = useState([]);
+    const [totalTicket, setTotalTicket] = useState(0);
+
 
 
     const [image, setImage] = useState(null)
@@ -32,7 +33,7 @@ function UserProvider ({children}){
     },[])
     return(
         
-        <UserContext.Provider value={{usuario: "Mendes", logado: logado, Login, infoUsuario, saldo: saldo, setSaldo,cartoes:cartoes,setCartoes, ticket: ticket, imagem: image, setImage }}>
+        <UserContext.Provider value={{usuario: "Mendes", logado: logado, Login, infoUsuario,TotalTicket: totalTicket, setTotalTicket, saldo: saldo, setSaldo,cartoes:cartoes,setCartoes, imagem: image, setImage }}>
             {children}
         </UserContext.Provider>
     )
