@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TouchableOpacity, Switch, StyleSheet } from 'react-native';
+import { View, Text, Button, TouchableOpacity, Switch, StyleSheet, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Linking } from 'react-native';
 
 export default function Configuracoes({ handle }) {
   const [notificacoes, setNotificacoes] = useState(false);
@@ -36,6 +38,12 @@ export default function Configuracoes({ handle }) {
 
   return (
     <View style={styles.container}>
+      <Image source={require('./imagebg.png')} style={styles.backgroundImage} />
+      <TouchableOpacity onPress={() => handle(false)} style={{ position: 'absolute', top: 20, left: 20 }}>
+        <View style={{ backgroundColor: 'red', borderRadius: 50, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
+          <Icon name="arrow-left" size={20} color="white" />
+        </View>
+      </TouchableOpacity>
       <Text style={styles.title}>Configurações</Text>
 
       <TouchableOpacity style={styles.configItem} onPress={toggleNotificacoes}>
@@ -82,8 +90,6 @@ export default function Configuracoes({ handle }) {
         <Text>Ajuda</Text>
         <Text>Suporte</Text>
       </TouchableOpacity>
-
-      <Button title="Voltar" onPress={() => handle(false)} />
     </View>
   );
 }
@@ -93,14 +99,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: '#f0f0f0',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#333',
+    color: 'white',
   },
   configItem: {
     flexDirection: 'row',
@@ -113,5 +117,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
     elevation: 2,
+    height: 70
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
   },
 });

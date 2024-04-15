@@ -1,5 +1,5 @@
 //---------------------IMPORTS PRINCIPAIS-----------------------------\\
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'; 
@@ -18,6 +18,7 @@ import AdicionarPedido from '../components/Comp Home/AdicionarPedido';
 import Cupons from '../components/Comp Home/Cupons';
 import { UserContext } from '../Context/UserContext';
 import Login from '../pages/Login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 //---------------------CONST TABNAVIGATOR-----------------------------\\
@@ -94,9 +95,15 @@ export default function Rotas (){
   const{logado } = useContext( UserContext );
   const [showMenu, setShowMenu] = useState(false);
 
-  if( logado == false ) {
-  //  return(  <Login /> )
-  }
+  useEffect(()=>{
+    if( logado == false ) {
+      const login = AsyncStorage.getItem("usuario")
+      if(!login){
+      return(  <Login /> )
+      }
+    }
+  },[])
+  
 
   const ButtonScreen = () => null;
 

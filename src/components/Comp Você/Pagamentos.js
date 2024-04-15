@@ -15,16 +15,20 @@ export default function Pagamentos({ handle }) {
   const [cartaoCadastrado, setCartaoCadastrado] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem('cartoes').then((value) => {
-      if (value) {
-        setCartoes(JSON.parse(value));
+    const loadCartoes = async () => {
+      try {
+        const cartoesData = await AsyncStorage.getItem('cartoes');
+        if (cartoesData) {
+          setCartoes(JSON.parse(cartoesData));
+          setCartaoCadastrado(true);
+        }
+      } catch (error) {
+        console.error('Erro ao carregar os cartões:', error);
       }
-    });
+    };
+  
+    loadCartoes();
   }, []);
-
-  useEffect(() => {
-    AsyncStorage.setItem('cartoes', JSON.stringify(cartoes));
-  }, [cartoes]);
 
   const adicionarCartao = () => {
     if (!numeroCartao || !nomeTitular || !dataValidade || !cvc) {
@@ -53,13 +57,20 @@ export default function Pagamentos({ handle }) {
       dataValidade,
       cvc,
     };
-    setCartoes([...cartoes, novoCartao]);
-    setModalVisible(false);
-    setNumeroCartao('');
-    setNomeTitular('');
-    setDataValidade('');
-    setCvc('');
-    setCartaoCadastrado(true);
+    const novosCartoes = [...cartoes, novoCartao];
+    setCartoes(novosCartoes);
+    AsyncStorage.setItem('cartoes', JSON.stringify(novosCartoes))
+      .then(() => {
+        setModalVisible(false);
+        setNumeroCartao('');
+        setNomeTitular('');
+        setDataValidade('');
+        setCvc('');
+        setCartaoCadastrado(true);
+      })
+      .catch((error) => {
+        console.error('Erro ao adicionar o cartão:', error);
+      });
   };
 
   const removerCartao = (index) => {
@@ -87,13 +98,13 @@ export default function Pagamentos({ handle }) {
       )}
       {cartaoCadastrado && cartoes.length > 0 && (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Seus cartões cadastrados:</Text>
+          <Text style={{color: "white", fontSize: 30}}>Seus cartões cadastrados:</Text>
           {cartoes.map((cartao, index) => (
             <View key={index}>
-              <Text>Número: {cartao.numero}</Text>
-              <Text>Titular: {cartao.nomeTitular}</Text>
-              <Text>Validade: {cartao.dataValidade}</Text>
-              <Text>CVC: {cartao.cvc}</Text>
+              <Text style={{color: "white"}}>Número: {cartao.numero}</Text>
+              <Text style={{color: "white"}}>Titular: {cartao.nomeTitular}</Text>
+              <Text style={{color: "white"}}>Validade: {cartao.dataValidade}</Text>
+              <Text style={{color: "white"}}>CVC: {cartao.cvc}</Text>
               <Button title="Remover Cartão" onPress={() => removerCartao(index)} />
             </View>
           ))}
