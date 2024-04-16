@@ -5,7 +5,7 @@ import CamQrCode from './CamQrCode';
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default  function Pagamentos( {handle} ) {
+export default  function Qrcode( {handle} ) {
   const [camqrcode, setCamQrcode] = useState(false);
 
   //-------------FAVORITOS---------------------

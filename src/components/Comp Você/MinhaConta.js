@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons'; // ou qualquer outra biblioteca de ícones
+import { UserContext } from '../../Context/UserContext';
 
 export default function MinhaConta({handle}) {
+  const{usuario} = useContext(UserContext)
   const [perfil, setPerfil] = useState({
-    nome: "mateus Mendes",
+    nome: usuario,
     email: "mendessilveriomateus@gmail.com",
     telefone: "(00)00000-0000",
     Cpf: "123456789123"

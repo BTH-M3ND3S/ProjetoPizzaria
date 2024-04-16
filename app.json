@@ -21,7 +21,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "O aplicativo precisa de permissão para poder acessar suas fotos!"
         }
       ]
     ],
