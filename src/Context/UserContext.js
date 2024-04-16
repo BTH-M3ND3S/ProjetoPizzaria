@@ -10,6 +10,7 @@ function UserProvider ({children}){
     const [ saldo, setSaldo ] = useState( 0 );
     const[ cartoes, setCartoes] = useState([]);
     const [totalTicket, setTotalTicket] = useState(0);
+    
 
 
 

@@ -107,84 +107,84 @@ export default function Pagamento({ handle }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        position: "absolute",
-        width: '100%',
-        height: '100%',
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    container2: {
-        width: "90%",
-        height: 600,
-        backgroundColor: "white",
-        borderRadius: 20,
-        justifyContent: "center"
-    },
-    Cartaodiv: {
-        width: "100%",
-        height: 100,
-        backgroundColor: "#CBCBCB",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: "center",
-        borderRadius: 10
-    },
-    Pixdiv: {
-        width: "100%",
-        height: 100,
-        backgroundColor: "#CBCBCB",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    pixpng: {
-        height: 50,
-        width: 50,
-        objectFit: "contain"
-    },
-    SaldoContadv: {
-        width: "100%",
-        height: 100,
-        backgroundColor: "#CBCBCB",
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row"
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-    },
-    cancelButton: {
-        position: 'absolute',
-        bottom: 20,
-        left: 20,
-        backgroundColor: "white"
-    },
-    paymentButton: {
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        backgroundColor: "red"
-    },
-    button: {
-        borderRadius: 50,
-        width: 165,
-        height: 55,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: 'black',
-        fontSize: 16,
-    },
-    buttonText2: {
-        color: 'white',
-        fontSize: 16,
-    },
+  container: {
+      flex: 1,
+      position: "absolute",
+      width: '100%',
+      height: '100%',
+      justifyContent: "center",
+      alignItems: "center"
+  },
+  container2: {
+      width: "90%",
+      height: 600,
+      backgroundColor: "white",
+      borderRadius: 20,
+      justifyContent: "center"
+  },
+  Cartaodiv: {
+      width: "100%",
+      height: 100,
+      backgroundColor: "#CBCBCB",
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: 'space-between',
+      alignItems: "center",
+      borderRadius: 10
+  },
+  Pixdiv: {
+      width: "100%", 
+      height: 100,
+      backgroundColor: "#CBCBCB",
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center"
+  },
+  pixpng: {
+      height: 50,
+      width: 50,
+      objectFit: "contain"
+  },
+  SaldoContadv: {
+      width: "100%",
+      height: 100,
+      backgroundColor: "#CBCBCB",
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "row"
+  },
+  backgroundImage: {
+      flex: 1,
+      resizeMode: 'cover',
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+  },
+  cancelButton: {
+      position: 'absolute',
+      bottom: 20,
+      left: 20,
+      backgroundColor: "white"
+  },
+  paymentButton: {
+      position: 'absolute',
+      bottom: 20,
+      right: 20,
+      backgroundColor: "red"
+  },
+  button: {
+      borderRadius: 50,
+      width: 165,
+      height: 55,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  buttonText: {
+      color: 'black',
+      fontSize: 16,
+  },
+  buttonText2: {
+      color: 'white',
+      fontSize: 16,
+  },
 });
