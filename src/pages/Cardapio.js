@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import Img1 from '../images/image2.png';
@@ -340,22 +340,10 @@ const Cardapio = () => {
     }
   ]);
 
-
-
   const [ticket, setTicket] = useState([]);
-  const [vizuticket, setVizuTicket] = useState(false)
-  //const [totalTicket, setTotalTicket] = useState(0);
-  const { totalTicket, setTotalTicket } = useContext(UserContext)
-  useEffect(() => {
-    let total = 0;
-    ticket.forEach(item => {
-      const precoNumerico = parseFloat(item.preco.replace('R$', '').replace(',', '.'));
-      total += precoNumerico * item.quantidade;
-    });
-    setTotalTicket(total);
-  }, [ticket]);
-
-
+  const[ vizuticket, setVizuTicket] = useState(false)
+  const[ valorTotal, setValorTotal] = useState(false)
+  const{totalTicket, setTotalTicket} = useContext(UserContext)
 
   const adicionarAoTicket = (produto) => {
     if (produto.quantidade > 0) {
@@ -367,14 +355,22 @@ const Cardapio = () => {
       } else {
         setTicket([...ticket, { ...produto }]);
       }
-
+      console.log(ticket);
       setVizuTicket(true);
-
     } else {
       alert("Coloque uma quantidade de produto válida!")
       console.log("A quantidade do produto é 0, não será adicionado ao ticket.");
     }
   };
+  useEffect(() => {
+      let total = 0;
+      ticket.forEach(item => {
+        total += parseFloat(item.preco.replace('R$ ', '')) * item.quantidade;
+      });
+      setValorTotal(total.toFixed(2));
+      setTotalTicket(total.toFixed(2));
+  },[ticket])
+  
 
   const renderScene = SceneMap({
     salgadas: () => <ProductList produtos={salgadas} setProdutos={setSalgadas} adicionarAoTicket={adicionarAoTicket} />,
@@ -400,33 +396,35 @@ const Cardapio = () => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
-
+        
       />
-      {!vizuticket ? <></> :
-        <View style={styles.ticketContainer}>
-          <Text style={styles.ticketTitle}>Ticket</Text>
-          <FlatList
-            data={ticket}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.ticketItem}>
-                <Text>{item.nome}</Text>
-                <Text>Quantidade: {item.quantidade}</Text>
-                <Text>Preço:{item.preco}</Text>
-                <Text>{totalTicket}</Text>
-              </View>
-            )}
-          />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <TouchableOpacity onPress={() => { setTicket([]); setVizuTicket(false) }} style={{ width: 200, height: 50, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}>
-              <Text style={{ color: 'white', fontSize: 18, textAlign: "center", alignItems: "center" }}>Limpar Ticket</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ width: 200, height: 50, backgroundColor: "red", alignItems: "center", justifyContent: "center" }}>
-              <Text style={{ color: 'white', fontSize: 18, textAlign: "center" }}>Adicionar Pedido</Text>
-            </TouchableOpacity>
+     {!vizuticket ? <></>:
+    <View style={styles.ticketContainer}>
+        <Text style={styles.ticketTitle}>Ticket</Text>
+        <FlatList
+          data={ticket}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.ticketItem}>
+              <Text>{item.nome}</Text>
+              <Text>Quantidade: {item.quantidade}</Text>
+              <Text>Preço:{item.preco}</Text>
+            </View>
+          )}
+        />
+        <View style={styles.totalContainer}>
+            <Text style={styles.totalText}>Valor Total: R$ {valorTotal}</Text>
           </View>
+        <View style={{display: "flex", flexDirection: "row"}}>
+        <TouchableOpacity onPress={()=> {setTicket([]); setVizuTicket(false) }} style={{width: 200,height: 50, backgroundColor: "gray", alignItems: "center", justifyContent: "center"}}>
+          <Text style={{color: 'white', fontSize: 18, textAlign: "center", alignItems: "center"}}>Limpar Ticket</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{width: 200, height: 50, backgroundColor: "red", alignItems: "center", justifyContent: "center"}}>
+          <Text style={{color: 'white', fontSize: 18, textAlign: "center"}}>Adicionar Pedido</Text>
+        </TouchableOpacity>
         </View>
-      }
+        </View>
+     }
     </View>
   );
 };
@@ -435,14 +433,14 @@ const ProductList = ({ produtos, setProdutos, adicionarAoTicket }) => {
   const renderItem = ({ item }) => (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Image source={item.imagem} style={styles.imagem} />
-        <View style={{ marginLeft: 15, maxWidth: 200 }}>
-          <Text style={styles.nome}>{item.nome}</Text>
-          <Text style={styles.descricao}>{item.descricao}</Text>
-          <Text style={styles.preco}>{item.preco}</Text>
+      <Image source={item.imagem} style={styles.imagem} />
+      <View style={{marginLeft: 15, maxWidth: 200}}>
+        <Text style={styles.nome}>{item.nome}</Text>
+        <Text style={styles.descricao}>{item.descricao}</Text>
+        <Text style={styles.preco}>{item.preco}</Text>
         </View>
       </View>
-
+      
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => { decrementQuantity(item.id) }}>
           <Text style={styles.quantityButton}>-</Text>
@@ -568,8 +566,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     marginLeft: 15,
-    width: 230,
-    alignItems: "center"
   },
   addButtonText: {
     color: 'white',
